@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:23:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 22:23:19
+* @Last Modified time: 2017-10-09 23:18:20
 **/
 
 #include <sdl2_cxx/core/init.hxx>
@@ -16,10 +16,19 @@ TEST_CASE( "init SDL2 system", "[core]" )
     REQUIRE( SDL_WasInit(0) == 0 );
     SECTION( "default guard" ) 
     {
-        sdl2::init_guard guard{};
+        try
+        {
+            sdl2::init_guard guard{};
 
-        REQUIRE( SDL_WasInit(0) != 0 );
-        REQUIRE( SDL_WasInit(0) == SDL_INIT_EVERYTHING );
+            REQUIRE( SDL_WasInit(0) != 0 );
+            REQUIRE( SDL_WasInit(0) == SDL_INIT_EVERYTHING );
+        } catch( const sdl2::exception& e )
+        {
+            REQUIRE( SDL_WasInit(0) == 0 );
+        } catch (...) 
+        {
+            REQUIRE( false );
+        }
     }
 
     // check if SDL_Quit is called
