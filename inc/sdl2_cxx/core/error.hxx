@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:33:01
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 21:34:00
+* @Last Modified time: 2017-10-09 23:20:12
 *
 * @brief  Brief description of file.
 *
@@ -14,6 +14,8 @@
 #define SDL2_CXX_CORE_ERROR_HXX
 
 #include <SDL_error.h> 
+
+#include <string>
 #include <stdexcept>
 
 namespace sdl2
