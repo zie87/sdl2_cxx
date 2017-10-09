@@ -1,10 +1,10 @@
 # sdl2_cxx
 
-[<img src="https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png" height="25"/> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Cmake.svg" height="25"/> <img src="https://github.com/philsquared/Catch/blob/master/catch-logo-small.png" height="25"/> <img src="https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-45e242791b7752b745a7ae53f265acd4.png" height="25"/> <img src="https://dka575ofm4ao0.cloudfront.net/pages-transactional_logos/retina/16896/ApwXsQaJT16xVdsGs7aY" height="25"/> <img src="https://www.libsdl.org/media/SDL_logo.png" height="25"/>](#references)
+[<img src="https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png" height="25"/> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Cmake.svg" height="25"/> <img src="https://www.libsdl.org/media/SDL_logo.png" height="25"/> <img src="https://github.com/philsquared/Catch/blob/master/catch-logo-small.png" height="25"/> <img src="https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-45e242791b7752b745a7ae53f265acd4.png" height="25"/> <img src="https://dka575ofm4ao0.cloudfront.net/pages-transactional_logos/retina/16896/ApwXsQaJT16xVdsGs7aY" height="25"/> ](#references)
 
 | Build status          | Systems / Compilers         |
 | ------------- | ------------------------------------------ |
-| [![CLang / GCC / XCode Builds](https://travis-ci.org/zie87/sdl2_cxx.svg?branch=master](https://travis-ci.org/zie87/sdl2_cxx) | Linux (clang38  / gcc6) OSX (XCode 8.3 clang) |
+| [![CLang / GCC / XCode Builds](https://travis-ci.org/zie87/sdl2_cxx.svg?branch=master)](https://travis-ci.org/zie87/sdl2_cxx) | Linux (clang38  / gcc6) OSX (XCode 8.3 clang) |
 | [![Visual Studio Builds](https://ci.appveyor.com/api/projects/status/90ryctsanv84928b?svg=true)](https://ci.appveyor.com/project/zie87/sdl2-cxx)       | Windows (Visual Studio 2017 / 2015)  |
 
 ## info
