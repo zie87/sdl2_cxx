@@ -1,0 +1,60 @@
+language: cpp
+dist: trusty
+sudo: required
+
+matrix:
+  include:
+
+    # Linux C++14 GCC builds
+    - os: linux
+      compiler: gcc
+      addons: &gcc6
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-6']
+      env: REAL_CC=gcc-6 REAL_CXX='g++-6' BUILD_TYPE='Release'
+
+    - os: linux
+      compiler: gcc
+      addons: *gcc6
+      env: REAL_CC=gcc-6 REAL_CXX='g++-6' BUILD_TYPE='Debug'
+
+    # Linux C++14 Clang builds
+    - os: linux
+      compiler: clang
+      addons: &clang38
+        apt:
+          sources: ['llvm-toolchain-precise-3.8', 'ubuntu-toolchain-r-test']
+          packages: ['clang-3.8']
+      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Release'
+
+    - os: linux
+      compiler: clang
+      addons: *clang38
+      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Debug'
+
+    # OSX C++14 Clang Builds
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env: REAL_CXX='clang++' BUILD_TYPE='Debug'
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env: REAL_CXX='clang++' BUILD_TYPE='Release'
+
+install:
+  - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then . .travis.linux; fi
+  - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then . .travis.osx; fi
+
+
+before_script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - cmake -H. -BBuild -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -Wdev
+  - cd Build
+
+script:
+  - make -j 2
+  - ctest -V -j 2
