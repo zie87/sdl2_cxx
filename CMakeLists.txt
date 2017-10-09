@@ -24,8 +24,7 @@ include (FindSDL2_image)
 find_package (SDL2_image REQUIRED)
 include_directories (${SDL2_IMAGE_INCLUDE_DIRS})
 
-include(CTest)
-enable_testing()
+add_subdirectory (3rd EXCLUDE_FROM_ALL)
 
 add_subdirectory(src)
 add_subdirectory(example)
@@ -35,3 +34,6 @@ find_package(Doxygen)
 if(DOXYGEN_FOUND)
     add_subdirectory(doc)
 endif()
+
+include(CTest)
+enable_testing()

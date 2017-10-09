@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 20:21:14
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 21:12:34
+* @Last Modified time: 2017-10-09 22:05:58
 *
 * @brief  Brief description of file.
 *
@@ -14,8 +14,6 @@
 #include <sdl2_cxx/detail/bitmask.hxx>
 
 #include <catch.hpp>
-
-#include <iostream>
 
 enum class enum_test_a : unsigned char
 {
@@ -32,7 +30,7 @@ namespace sdl2
 }
 
 
-TEST_CASE( "Bitmask combination", "[detail]" ) 
+TEST_CASE( "bitmask combination", "[detail]" ) 
 {
     using namespace sdl2;
 
