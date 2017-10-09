@@ -2,3 +2,6 @@
 
 brew install smpeg2 libpng freetype sdl2 sdl2_ttf sdl2_image
 brew install sdl2_mixer --with-smpeg2
+
+#setup compiler
+export CC=${REAL_CC} CXX=${REAL_CXX}
