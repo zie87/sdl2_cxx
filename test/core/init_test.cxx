@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:23:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 22:06:04
+* @Last Modified time: 2017-10-09 22:21:33
 *
 * @brief  Brief description of file.
 *
@@ -24,6 +24,29 @@ TEST_CASE( "init SDL2 system", "[core]" )
 
         REQUIRE( SDL_WasInit(0) != 0 );
         REQUIRE( SDL_WasInit(0) == SDL_INIT_EVERYTHING );
+    }
+
+    // check if SDL_Quit is called
+    REQUIRE( SDL_WasInit(0) == 0 );
+
+    SECTION( "single flag guard init" ) 
+    {
+        sdl2::init_guard guard(sdl2::init_flags::timer);
+
+        REQUIRE( SDL_WasInit(0) != 0 );
+        REQUIRE( SDL_WasInit(0) == SDL_INIT_TIMER );
+    }
+
+    // check if SDL_Quit is called
+    REQUIRE( SDL_WasInit(0) == 0 );
+
+    SECTION( "initializer_list flag guard init" ) 
+    {
+        sdl2::init_guard guard{sdl2::init_flags::timer, sdl2::init_flags::events};
+
+        REQUIRE( SDL_WasInit(0) != 0 );
+        REQUIRE( (SDL_WasInit(0) & SDL_INIT_TIMER) );
+        REQUIRE( (SDL_WasInit(0) & SDL_INIT_EVENTS) );
     }
 
     // check if SDL_Quit is called

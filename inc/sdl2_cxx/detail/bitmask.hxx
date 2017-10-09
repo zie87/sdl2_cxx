@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 19:52:46
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 21:07:33
+* @Last Modified time: 2017-10-09 22:17:59
 *
 * @brief  Brief description of file.
 *
@@ -14,6 +14,9 @@
 #define SDL2_CXX_DETAIL_BITMASK_HXX
 
 #include <bitset>
+#include <numeric>
+#include <functional>
+#include <initializer_list>
 
 namespace sdl2
 {
@@ -71,6 +74,12 @@ typename std::enable_if<enable_bitmask_operators<E>::enable,E&>::type operator^=
     typedef typename std::underlying_type<E>::type underlying;
     lhs=static_cast<E>(static_cast<underlying>(lhs) ^ static_cast<underlying>(rhs));
     return lhs;
+}
+
+template <typename E, typename = std::enable_if<std::is_enum<E>::value>>
+std::underlying_type_t<E> combine(std::initializer_list<E> ilist) 
+{
+    return static_cast<std::underlying_type_t<E>>(accumulate(cbegin(ilist), cend(ilist), static_cast<E>(0),  std::bit_or<>{}));
 }
 
 } // namespace sdl2
