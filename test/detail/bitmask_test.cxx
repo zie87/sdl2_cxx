@@ -3,11 +3,8 @@
 * @Author: zie87
 * @Date:   2017-10-09 20:21:14
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 22:05:58
+* @Last Modified time: 2017-10-09 22:24:31
 *
-* @brief  Brief description of file.
-*
-* Detailed description of file.
 **/
 
 

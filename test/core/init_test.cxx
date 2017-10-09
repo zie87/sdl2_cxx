@@ -3,11 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:23:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 22:21:33
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
+* @Last Modified time: 2017-10-09 22:23:19
 **/
 
 #include <sdl2_cxx/core/init.hxx>
