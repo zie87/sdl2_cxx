@@ -26,12 +26,12 @@ matrix:
         apt:
           sources: ['llvm-toolchain-precise-3.8', 'ubuntu-toolchain-r-test']
           packages: ['clang-3.8']
-      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Release'
+      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Release' SUPPORT=libstdc++-4.9-dev
 
     - os: linux
       compiler: clang
       addons: *clang38
-      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Debug'
+      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Debug' SUPPORT=libstdc++-4.9-dev
 
     # OSX C++14 Clang Builds
 
