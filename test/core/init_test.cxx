@@ -3,15 +3,14 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:23:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-13 14:52:22
+* @Last Modified time: 2017-10-13 15:07:04
 **/
 
 #include <sdl2_cxx/core/init.hxx>
 
 #include <catch.hpp>
 
-inline void expect_init(uint32_t flags) { REQUIRE(SDL_WasInit(flags) != SDL_FALSE); }
-inline void expect_not_init(uint32_t flags = SDL_INIT_EVERYTHING) { REQUIRE(SDL_WasInit(flags) == SDL_FALSE);}
+inline void expect_init(uint32_t flags) { REQUIRE(SDL_WasInit(0) & flags); }
 
 TEST_CASE( "init SDL2 system", "[core]" ) 
 {
@@ -24,7 +23,8 @@ TEST_CASE( "init SDL2 system", "[core]" )
             expect_init(SDL_INIT_EVERYTHING);
         } catch( const sdl2::exception& e )
         {
-            expect_not_init();
+            // todo: check isn't meaningful enough
+            expect_not_init(SDL_INIT_EVERYTHING);
         } catch (...) 
         {
             REQUIRE( false );
