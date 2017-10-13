@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:23:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 23:18:20
+* @Last Modified time: 2017-10-13 14:24:57
 **/
 
 #include <sdl2_cxx/core/init.hxx>
@@ -13,7 +13,7 @@
 TEST_CASE( "init SDL2 system", "[core]" ) 
 {
     // precheck that sdl wasn't initialised
-    REQUIRE( SDL_WasInit(0) == 0 );
+    const auto start_flags = SDL_WasInit(0);
     SECTION( "default guard" ) 
     {
         try
@@ -24,7 +24,7 @@ TEST_CASE( "init SDL2 system", "[core]" )
             REQUIRE( SDL_WasInit(0) == SDL_INIT_EVERYTHING );
         } catch( const sdl2::exception& e )
         {
-            REQUIRE( SDL_WasInit(0) == 0 );
+            REQUIRE( SDL_WasInit(0) == start_flags );
         } catch (...) 
         {
             REQUIRE( false );
@@ -32,7 +32,7 @@ TEST_CASE( "init SDL2 system", "[core]" )
     }
 
     // check if SDL_Quit is called
-    REQUIRE( SDL_WasInit(0) == 0 );
+    REQUIRE( SDL_WasInit(0) == start_flags );
 
     SECTION( "single flag guard init" ) 
     {
@@ -43,7 +43,7 @@ TEST_CASE( "init SDL2 system", "[core]" )
     }
 
     // check if SDL_Quit is called
-    REQUIRE( SDL_WasInit(0) == 0 );
+    REQUIRE( SDL_WasInit(0) == start_flags );
 
     SECTION( "initializer_list flag guard init" ) 
     {
@@ -55,5 +55,5 @@ TEST_CASE( "init SDL2 system", "[core]" )
     }
 
     // check if SDL_Quit is called
-    REQUIRE( SDL_WasInit(0) == 0 );
+    REQUIRE( SDL_WasInit(0) == start_flags );
 }
