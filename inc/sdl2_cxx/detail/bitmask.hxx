@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 19:52:46
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-13 14:00:49
+* @Last Modified time: 2017-10-13 14:06:50
 *
 * @brief  Brief description of file.
 *
@@ -80,7 +80,7 @@ typename std::enable_if<enable_bitmask_operators<E>::enable,E&>::type operator^=
 template <typename E, typename = std::enable_if<std::is_enum<E>::value>>
 std::underlying_type_t<E> combine(std::initializer_list<E> ilist) 
 {
-    return static_cast<std::underlying_type_t<E>>(accumulate(cbegin(ilist), cend(ilist), static_cast<E>(0),  std::bit_or<>{}));
+    return static_cast<std::underlying_type_t<E>>(accumulate(std::cbegin(ilist), std::cend(ilist), static_cast<E>(0),  std::bit_or<>{}));
 }
 
 } // namespace sdl2
