@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 19:52:46
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 22:17:59
+* @Last Modified time: 2017-10-13 14:00:49
 *
 * @brief  Brief description of file.
 *
@@ -15,6 +15,7 @@
 
 #include <bitset>
 #include <numeric>
+#include <iterator>
 #include <functional>
 #include <initializer_list>
 
