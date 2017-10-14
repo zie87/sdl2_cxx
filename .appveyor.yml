@@ -55,4 +55,5 @@ build:
 
 test_script:
   - cd Build
+  - set PATH=%PREFIX%\lib;%PATH%
   - ctest -V -j 2 -C %CONFIGURATION%
