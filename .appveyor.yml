@@ -43,6 +43,7 @@ before_build:
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\lib\x86\* %PREFIX%\lib > nul
 
+  - cd %APPVEYOR_BUILD_FOLDER%
   #Cmake will autodetect the compiler, but we set the arch
   - cmake -H. -BBuild -A%PLATFORM% -DCMAKE_PREFIX_PATH=%PREFIX%
 
