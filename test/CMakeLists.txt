@@ -8,11 +8,13 @@ include_directories ("${TEST_THIRD_PARTY_INCLUDE_PATH}")
 #set test sources
 file (GLOB TEST_SRC_FILES_CORE "${CMAKE_CURRENT_SOURCE_DIR}/core/*.cxx")
 file (GLOB TEST_SRC_FILES_DETAIL "${CMAKE_CURRENT_SOURCE_DIR}/detail/*.cxx")
+file (GLOB TEST_SRC_FILES_TIME "${CMAKE_CURRENT_SOURCE_DIR}/time/*.cxx")
 
 #set target executable
 add_executable (${TEST_APP_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.cxx"
                                     "${TEST_SRC_FILES_CORE}"  
                                     "${TEST_SRC_FILES_DETAIL}"  
+                                    "${TEST_SRC_FILES_TIME}"
     )
 
 #add the library
