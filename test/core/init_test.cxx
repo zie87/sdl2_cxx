@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:23:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-13 15:10:17
+* @Last Modified time: 2017-10-14 10:17:23
 **/
 
 #include <sdl2_cxx/core/init.hxx>
@@ -23,12 +23,14 @@ TEST_CASE( "init SDL2 system", "[core]" )
             REQUIRE( was_init(SDL_INIT_EVERYTHING) );
         } catch( const sdl2::exception& e )
         {
-            // todo: check isn't meaningful enough
-            REQUIRE( !was_init(SDL_INIT_EVERYTHING) );
+            // init wasn't succesful but error handling works
         } catch (...) 
         {
             REQUIRE( false );
         }
+
+        // todo: check isn't meaningful enough
+        REQUIRE( !was_init(SDL_INIT_EVERYTHING) );
     }
 
     SECTION( "single flag guard init" ) 
