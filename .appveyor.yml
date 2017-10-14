@@ -6,7 +6,7 @@ os:
   - Visual Studio 2015
 
 environment:
-  - PREFIX: c:\usr_msvc
+  PREFIX: c:\usr_msvc
 
 init:
   - git config --global core.autocrlf input
