@@ -19,7 +19,6 @@ install:
 # Win32 and x64 are CMake-compatible solution platform names.
 # This allows us to pass %PLATFORM% to CMake -A.
 platform:
-  - Win32
   - x64
 
 # build Configurations, i.e. Debug, Release, etc.
@@ -41,7 +40,7 @@ before_build:
     %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.6-VC.zip
     %NEEDDEPENDS% %MSVC% 7z x SDL2-devel-2.0.6-VC.zip > nul
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\include\* %PREFIX%\include > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\lib\x86\* %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\lib\%PLATFORM%\* %PREFIX%\lib > nul
 
   - cd %APPVEYOR_BUILD_FOLDER%
   #Cmake will autodetect the compiler, but we set the arch
