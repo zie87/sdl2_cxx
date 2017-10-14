@@ -1,0 +1,57 @@
+# version string format -- This will be overwritten later anyway
+version: "{branch}.{build}"
+
+os:
+  - Visual Studio 2017
+  - Visual Studio 2015
+
+environment:
+  - PREFIX: c:\usr_msvc
+
+init:
+  - git config --global core.autocrlf input
+  # Set build version to git commit-hash
+  - ps: Update-AppveyorBuild -Version "$($env:APPVEYOR_REPO_BRANCH) - $($env:APPVEYOR_REPO_COMMIT)"
+
+install:
+  - git submodule update --init --recursive
+
+# Win32 and x64 are CMake-compatible solution platform names.
+# This allows us to pass %PLATFORM% to CMake -A.
+platform:
+  - Win32
+  - x64
+
+# build Configurations, i.e. Debug, Release, etc.
+configuration:
+  - Debug
+  - Release
+
+before_build:
+  - if exist %PREFIX% set NEEDDEPENDS=rem
+
+  # Depends
+  - |-
+    %NEEDDEPENDS% mkdir %PREFIX%\include\SDL2
+    %NEEDDEPENDS% mkdir %PREFIX%\lib
+    %NEEDDEPENDS% cd %TEMP%
+
+  # Depends for MSVC
+  - |-
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.6-VC.zip
+    %NEEDDEPENDS% %MSVC% 7z x SDL2-devel-2.0.6-VC.zip > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\include\* %PREFIX%\include > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\lib\x86\* %PREFIX%\lib > nul
+
+  #Cmake will autodetect the compiler, but we set the arch
+  - cmake -H. -BBuild -A%PLATFORM% -DCMAKE_PREFIX_PATH=%PREFIX%
+
+# build with MSBuild
+build:
+  project: Build\sdl2_cxx.sln        # path to Visual Studio solution or project
+  parallel: true                        # enable MSBuild parallel builds
+  verbosity: normal                     # MSBuild verbosity level {quiet|minimal|normal|detailed}
+
+test_script:
+  - cd Build
+  - ctest -V -j 2 -C %CONFIGURATION%
