@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-14 23:58:53
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-15 00:05:05
+* @Last Modified time: 2017-10-15 00:12:40
 *
 * @brief  Brief description of file.
 *
@@ -38,6 +38,8 @@ inline uint64_t performance_counter() { return ::SDL_GetPerformanceCounter(); }
 inline uint64_t performance_frequency() { return ::SDL_GetPerformanceFrequency(); }
 
 inline void delay(duration interval) { ::SDL_Delay(interval.count()); }
+
+// todo: add wrapper for (callback) timer
 
 } // namespace sdl2
 
