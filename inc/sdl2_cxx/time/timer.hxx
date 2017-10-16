@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-14 23:58:53
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-15 00:12:40
+* @Last Modified time: 2017-10-16 22:38:40
 *
 * @brief  Brief description of file.
 *
@@ -13,7 +13,7 @@
 #ifndef SDL2_CXX_TIME_TIMER_HXX
 #define SDL2_CXX_TIME_TIMER_HXX
 
-#include "SDL_timer.h"
+#include <SDL_timer.h>
 #include <chrono>
 
 namespace sdl2
