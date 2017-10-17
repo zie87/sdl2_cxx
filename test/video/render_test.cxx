@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:07:32
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-17 06:20:22
+* @Last Modified time: 2017-10-17 06:37:40
 *
 * @brief  Brief description of file.
 *
@@ -31,10 +31,6 @@ TEST_CASE("check renderer wrapper", "[video]")
         {
           sdl2::renderer renderer(window, sdl2::renderer_flags::software);
         }
-        {
-          sdl2::renderer renderer(window, 1);
-        }
-
       } catch(...)
       {
         REQUIRE(false);

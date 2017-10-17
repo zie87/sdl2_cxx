@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:07:32
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-17 06:29:30
+* @Last Modified time: 2017-10-17 06:35:44
 *
 * @brief  Brief description of file.
 *
@@ -31,7 +31,7 @@ TEST_CASE("check window wrapper", "[video]")
       sdl2::window window(title, x, y, w, h);
       SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
 
-      REQUIRE( SDL_GetWindowTitle(sdl_win) == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
+      REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
       REQUIRE( SDL_GetWindowFlags(sdl_win) == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
 
       int w_x = -1;
@@ -54,7 +54,7 @@ TEST_CASE("check window wrapper", "[video]")
       sdl2::window window(title, w, h, sdl2::window_flags::hidden);
       SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_HIDDEN);
 
-      REQUIRE( SDL_GetWindowTitle(sdl_win) == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
+      REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
       REQUIRE( SDL_GetWindowFlags(sdl_win) == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
 
       int w_x = -1;
