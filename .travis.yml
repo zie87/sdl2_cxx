@@ -2,6 +2,10 @@ language: cpp
 dist: trusty
 sudo: required
 
+env:
+  global:
+   - SDL_VIDEODRIVER: dummy
+
 matrix:
   include:
 

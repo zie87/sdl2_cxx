@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:07:32
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-17 05:35:01
+* @Last Modified time: 2017-10-17 06:29:30
 *
 * @brief  Brief description of file.
 *
@@ -15,61 +15,64 @@
 #include "SDL.h"
 #include <catch.hpp>
 
-TEST_CASE("check window wrapper", "[window]") 
+TEST_CASE("check window wrapper", "[video]") 
 {
-    SDL_Init(SDL_INIT_TIMER);
+  SDL_VideoInit(NULL);
 
-    SECTION("Basic construction test") 
+  SECTION("Basic construction test") 
+  {
+    const std::string title("construction test test");
+    const int x = 10;
+    const int y = 20;
+    const int w = 120;
+    const int h = 80;
+
     {
-      const std::string title("construction test test");
-      const int x = 10;
-      const int y = 20;
-      const int w = 120;
-      const int h = 80;
+      sdl2::window window(title, x, y, w, h);
+      SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
 
-      {
-        sdl2::window window(title, x, y, w, h);
-        std::string w_title( SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
+      REQUIRE( SDL_GetWindowTitle(sdl_win) == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
+      REQUIRE( SDL_GetWindowFlags(sdl_win) == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
 
-        REQUIRE(title == w_title);
-        REQUIRE(SDL_WINDOW_SHOWN == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+      int w_x = -1;
+      int w_y = -1;
 
-        int w_x = -1;
-        int w_y = -1;
+      SDL_GetWindowPosition(sdl2::to_sdl_type(window), &w_x, &w_y);
+      REQUIRE(x == w_x);
+      REQUIRE(y == w_y);
 
-        SDL_GetWindowPosition(sdl2::to_sdl_type(window), &w_x, &w_y);
-        REQUIRE(x == w_x);
-        REQUIRE(y == w_y);
+      int w_w = -1;
+      int w_h = -1;
+      SDL_GetWindowSize(sdl2::to_sdl_type(window), &w_w, &w_h);
+      REQUIRE(w == w_w);
+      REQUIRE(h == w_h);
 
-        int w_w = -1;
-        int w_h = -1;
-        SDL_GetWindowSize(sdl2::to_sdl_type(window), &w_w, &w_h);
-        REQUIRE(w == w_w);
-        REQUIRE(h == w_h);
-      }
-
-      {
-        sdl2::window window(title, w, h, sdl2::window_flags::hidden);
-        std::string w_title( SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
-
-        REQUIRE(title == w_title);
-        REQUIRE(SDL_WINDOW_HIDDEN == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
-
-        int w_x = -1;
-        int w_y = -1;
-
-        SDL_GetWindowPosition(sdl2::to_sdl_type(window), &w_x, &w_y);
-        REQUIRE(w_x >= 0);
-        REQUIRE(w_y >= 0);
-
-        int w_w = -1;
-        int w_h = -1;
-        SDL_GetWindowSize(sdl2::to_sdl_type(window), &w_w, &w_h);
-        REQUIRE(w == w_w);
-        REQUIRE(h == w_h);
-      }
-
+      SDL_DestroyWindow(sdl_win);
     }
 
-    SDL_Quit();
+    {
+      sdl2::window window(title, w, h, sdl2::window_flags::hidden);
+      SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_HIDDEN);
+
+      REQUIRE( SDL_GetWindowTitle(sdl_win) == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
+      REQUIRE( SDL_GetWindowFlags(sdl_win) == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+
+      int w_x = -1;
+      int w_y = -1;
+
+      SDL_GetWindowPosition(sdl2::to_sdl_type(window), &w_x, &w_y);
+      REQUIRE(w_x >= 0);
+      REQUIRE(w_y >= 0);
+
+      int w_w = -1;
+      int w_h = -1;
+      SDL_GetWindowSize(sdl2::to_sdl_type(window), &w_w, &w_h);
+      REQUIRE(w == w_w);
+      REQUIRE(h == w_h);
+
+      SDL_DestroyWindow(sdl_win);
+    }
+  }
+
+  SDL_VideoQuit();
 }
