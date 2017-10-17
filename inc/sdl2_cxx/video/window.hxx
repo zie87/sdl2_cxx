@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-16 22:38:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-16 23:35:58
+* @Last Modified time: 2017-10-17 05:30:00
 *
 * @brief  Brief description of file.
 *
@@ -18,6 +18,8 @@
 #include <sdl2_cxx/detail/bitmask.hxx>
 #include <sdl2_cxx/detail/wrapper.hxx>
 #include <sdl2_cxx/detail/interfaces.hxx>
+
+#include <sdl2_cxx/core/error.hxx>
 
 namespace sdl2
 {
@@ -50,6 +52,13 @@ namespace sdl2
   template<>
   struct enable_bitmask_operators<window_flags>{ static const bool enable = true; };
 
+  namespace windowpos 
+  {
+      constexpr int undefined = SDL_WINDOWPOS_UNDEFINED;
+      constexpr int centered = SDL_WINDOWPOS_CENTERED;
+  }
+
+
   namespace detail 
   {
     template <typename Derived>
@@ -68,7 +77,8 @@ namespace sdl2
   class window : public detail::window_api<window>, detail::noncopyable
   {
     public:
-      window(const std::string& title, int x, int y, int w, int h, window_flags flags = window_flags::none)
+      explicit window(const std::string& title, int w, int h, window_flags flags = window_flags::none) : window(title, windowpos::undefined, windowpos::undefined, w, h, flags) {}
+      explicit window(const std::string& title, int x, int y, int w, int h, window_flags flags = window_flags::none)
       : detail::window_api<window>(), detail::noncopyable(), m_window( SDL_CreateWindow(title.c_str(), x, y, w, h, static_cast<std::underlying_type_t<window_flags>>(flags)) )
       {
         SDL2_CXX_CHECK( m_window != nullptr );
