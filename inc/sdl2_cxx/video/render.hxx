@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-17 05:58:47
+* @Last Modified time: 2017-10-18 19:21:19
 *
 * @brief  Brief description of file.
 *
@@ -20,6 +20,7 @@
 #include <sdl2_cxx/detail/interfaces.hxx>
 
 #include <sdl2_cxx/core/error.hxx>
+#include <sdl2_cxx/core/stdinc.hxx>
 #include <sdl2_cxx/video/window.hxx>
 
 
@@ -45,10 +46,15 @@ namespace sdl2
     template <typename Derived>
     struct renderer_api 
     {
+      inline void set_draw_color( uint8_t r, uint8_t g, uint8_t b, uint8_t a ) { SDL2_CXX_CHECK( (SDL_SetRenderDrawColor(to_sdl_type(*this), r, g, b, a) >= 0 ) ); }
+      inline void get_draw_color( uint8_t& r, uint8_t& g, uint8_t& b, uint8_t& a ) const { SDL2_CXX_CHECK( (SDL_GetRenderDrawColor(to_sdl_type(*this), &r, &g, &b, &a) >= 0 ) ); }
 
-      explicit operator bool() const { return to_sdl_type(*this) != nullptr; }
+      inline void clear() { SDL2_CXX_CHECK( (SDL_RenderClear(to_sdl_type(*this))) >= 0 ); }
+      inline void present() noexcept { SDL_RenderPresent(to_sdl_type(*this)); }
 
-      friend SDL_Renderer* to_sdl_type(const renderer_api& self) { return to_sdl_type(static_cast<const Derived&>(self)); }
+      explicit operator bool() const noexcept { return to_sdl_type(*this) != nullptr; }
+
+      friend SDL_Renderer* to_sdl_type(const renderer_api& self) noexcept { return to_sdl_type(static_cast<const Derived&>(self)); }
 
       protected:
         virtual ~renderer_api() = default;
@@ -72,10 +78,10 @@ namespace sdl2
       private:
         detail::sdl_ptr<SDL_Renderer, SDL_DestroyRenderer> m_renderer = nullptr;
 
-        friend SDL_Renderer* to_sdl_type(const renderer&);
+        friend SDL_Renderer* to_sdl_type(const renderer&) noexcept;
     };
 
-    inline SDL_Renderer* to_sdl_type(const renderer& w) { return w.m_renderer.get(); }
+    inline SDL_Renderer* to_sdl_type(const renderer& w) noexcept { return w.m_renderer.get(); }
 
 } // namespace sdl2
 
