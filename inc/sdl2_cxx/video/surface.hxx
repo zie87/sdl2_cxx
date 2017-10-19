@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 03:43:23
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 04:30:20
+* @Last Modified time: 2017-10-19 05:24:24
 *
 * @brief  Brief description of file.
 *
@@ -36,9 +36,9 @@ namespace sdl2
         m_surface = std::move(sf.m_surface);
         return *this; 
       }
-      
+
     private:
-      surface(SDL_Surface* s) : m_surface(s) { SDL2_CXX_CHECK( m_surface != nullptr );}
+      explicit surface(SDL_Surface* s) : m_surface(s) { SDL2_CXX_CHECK( m_surface != nullptr );}
 
       detail::sdl_ptr<SDL_Surface, SDL_FreeSurface> m_surface = nullptr;
 

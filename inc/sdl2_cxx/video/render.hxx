@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 03:55:07
+* @Last Modified time: 2017-10-19 05:31:39
 *
 * @brief  Brief description of file.
 *
@@ -21,9 +21,9 @@
 
 #include <sdl2_cxx/core/error.hxx>
 #include <sdl2_cxx/core/stdinc.hxx>
+
 #include <sdl2_cxx/video/window.hxx>
-
-
+#include <sdl2_cxx/video/surface.hxx>
 
 namespace sdl2
 {
