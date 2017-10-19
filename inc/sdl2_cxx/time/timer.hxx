@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-14 23:58:53
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-16 22:38:40
+* @Last Modified time: 2017-10-19 16:38:31
 *
 * @brief  Brief description of file.
 *
@@ -34,6 +34,7 @@ struct clock
 using time_point = clock::time_point;
 using duration = clock::duration;
 
+inline uint32_t ticks() noexcept { return SDL_GetTicks(); }
 inline uint64_t performance_counter() { return ::SDL_GetPerformanceCounter(); }
 inline uint64_t performance_frequency() { return ::SDL_GetPerformanceFrequency(); }
 
