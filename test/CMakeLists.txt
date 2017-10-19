@@ -4,6 +4,7 @@ set (TEST_APP_NAME "sdl2_cxx_tests")
 
 #set includes
 include_directories ("${TEST_THIRD_PARTY_INCLUDE_PATH}")
+add_definitions(-DTEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/test_data")
 
 #set test sources
 file (GLOB TEST_SRC_FILES_CORE "${CMAKE_CURRENT_SOURCE_DIR}/core/*.cxx")
@@ -27,3 +28,10 @@ enable_testing()
 
 #parse catch tests
 ParseAndAddCatchTests (${TEST_APP_NAME})
+
+#set target executable
+add_executable (event_benchmark    "${CMAKE_CURRENT_SOURCE_DIR}/event_dispatch_timer.cxx"
+    )
+
+#add the library
+target_link_libraries (event_benchmark ${SDL2_LIBRARY} )

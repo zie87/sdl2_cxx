@@ -1,14 +1,14 @@
 /**
-* @file   bitmask_test.cxx
+* @file   type_traits_test.cxx
 * @Author: zie87
 * @Date:   2017-10-09 20:21:14
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-09 22:24:31
+* @Last Modified time: 2017-10-18 22:08:51
 *
 **/
 
 
-#include <sdl2_cxx/detail/bitmask.hxx>
+#include <sdl2_cxx/detail/type_traits.hxx>
 
 #include <catch.hpp>
 

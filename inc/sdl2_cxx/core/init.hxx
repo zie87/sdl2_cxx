@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:28:25
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-15 01:57:57
+* @Last Modified time: 2017-10-18 21:19:09
 *
 * @brief  Brief description of file.
 *
@@ -16,7 +16,7 @@
 #include <SDL.h>
 
 #include <sdl2_cxx/core/error.hxx>
-#include <sdl2_cxx/detail/bitmask.hxx>
+#include <sdl2_cxx/detail/type_traits.hxx>
 
 #include <iostream>
 

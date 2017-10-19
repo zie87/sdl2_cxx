@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-15 01:35:18
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-15 02:33:33
+* @Last Modified time: 2017-10-18 21:19:14
 *
 * @brief  Brief description of file.
 *
@@ -16,7 +16,7 @@
 #include <SDL_log.h>
 
 #include <sstream>
-#include <sdl2_cxx/detail/bitmask.hxx>
+#include <sdl2_cxx/detail/type_traits.hxx>
 
 namespace sdl2
 {

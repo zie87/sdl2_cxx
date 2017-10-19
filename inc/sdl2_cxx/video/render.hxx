@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 19:21:19
+* @Last Modified time: 2017-10-19 03:55:07
 *
 * @brief  Brief description of file.
 *
@@ -15,7 +15,7 @@
 
 #include <SDL_render.h>
 
-#include <sdl2_cxx/detail/bitmask.hxx>
+#include <sdl2_cxx/detail/type_traits.hxx>
 #include <sdl2_cxx/detail/wrapper.hxx>
 #include <sdl2_cxx/detail/interfaces.hxx>
 
@@ -61,7 +61,7 @@ namespace sdl2
     };
   } // namespace detail
 
-  class renderer : public detail::renderer_api<renderer>, detail::noncopyable
+  class renderer final : public detail::renderer_api<renderer>, detail::noncopyable
   {
     public:
 

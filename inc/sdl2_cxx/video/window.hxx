@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-16 22:38:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-17 05:30:00
+* @Last Modified time: 2017-10-19 03:55:19
 *
 * @brief  Brief description of file.
 *
@@ -15,7 +15,7 @@
 
 #include <SDL_video.h>
 
-#include <sdl2_cxx/detail/bitmask.hxx>
+#include <sdl2_cxx/detail/type_traits.hxx>
 #include <sdl2_cxx/detail/wrapper.hxx>
 #include <sdl2_cxx/detail/interfaces.hxx>
 
@@ -74,7 +74,7 @@ namespace sdl2
     };
   } // namespace detail
 
-  class window : public detail::window_api<window>, detail::noncopyable
+  class window final : public detail::window_api<window>, detail::noncopyable
   {
     public:
       explicit window(const std::string& title, int w, int h, window_flags flags = window_flags::none) : window(title, windowpos::undefined, windowpos::undefined, w, h, flags) {}
