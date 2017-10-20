@@ -67,3 +67,4 @@ before_script:
 script:
   - make -j 2
   - ctest -V -j 2
+  - if [[ ${BUILD_TYPE} == 'Coverage' ]]; then make test_coverage; fi
