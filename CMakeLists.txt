@@ -17,12 +17,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(PROJECT_TEST_NAME ${PROJECT_NAME}_test)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
   include(CodeCoverage)
   set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-  set(LCOV_REMOVE_EXTRA "'test/*'" "'3rd/*'")
+  set(LCOV_REMOVE_EXTRA 'test/*' '3rd/*')
   setup_target_for_coverage(test_coverage ${PROJECT_TEST_NAME} coverage)
-endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+endif (CMAKE_BUILD_TYPE STREQUAL "Coverage")
 
 include_directories(inc)
 

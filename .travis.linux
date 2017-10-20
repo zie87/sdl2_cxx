@@ -7,7 +7,7 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
 
 
 sudo apt-get update -qq
-sudo apt-get install -qq $SUPPORT
+sudo apt-get install -qq $SUPPORT lcov gcovr doxygen
 
 #setup compiler
 export CC=${REAL_CC} CXX=${REAL_CXX}
