@@ -14,6 +14,16 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+
+set(PROJECT_TEST_NAME ${PROJECT_NAME}_test)
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+  include(CodeCoverage)
+  set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+  set(LCOV_REMOVE_EXTRA "'test/*'" "'3rd/*'")
+  setup_target_for_coverage(test_coverage ${PROJECT_TEST_NAME} coverage)
+endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+
 include_directories(inc)
 
 include (FindSDL2)
