@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-18 21:26:49
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 17:22:59
+* @Last Modified time: 2017-10-20 18:28:32
 *
 * @brief  Brief description of file.
 *
@@ -16,6 +16,7 @@
 #include <SDL_events.h>
 #include <sdl2_cxx/events/event_types.hxx>
 #include <sdl2_cxx/events/mouse.hxx>
+#include <sdl2_cxx/events/scancode.hxx>
 
 namespace sdl2
 {
@@ -110,7 +111,7 @@ namespace sdl2
 
         constexpr auto keysym() const { return event_data_holder<T>::get().keysym; }
 
-        constexpr auto scancode() const { return keysym().scancode; }
+        constexpr scancode code() const { return static_cast<scancode>(keysym().scancode); }
         constexpr auto sym() const { return keysym().sym; }
         constexpr auto mod() const { return keysym().mod; }
     };
