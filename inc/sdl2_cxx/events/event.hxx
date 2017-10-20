@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-18 21:26:49
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 21:48:04
+* @Last Modified time: 2017-10-20 05:36:40
 *
 * @brief  Brief description of file.
 *
@@ -127,7 +127,7 @@ namespace sdl2
 
         constexpr auto timestamp() const { return event_data_holder<T>::get().timestamp; }
         constexpr auto windowID() const { return event_data_holder<T>::get().windowID; }
-        constexpr std::string text() const { return event_data_holder<T>::get().text; }
+        std::string text() const { return event_data_holder<T>::get().text; }
         constexpr auto start() const { return event_data_holder<T>::get().start; }
         constexpr auto length() const { return event_data_holder<T>::get().length; }
     };
@@ -144,7 +144,7 @@ namespace sdl2
 
         constexpr auto timestamp() const { return event_data_holder<T>::get().timestamp; }
         constexpr auto windowID() const { return event_data_holder<T>::get().windowID; }
-        constexpr std::string text() const { return event_data_holder<T>::get().text; }
+        std::string text() const { return event_data_holder<T>::get().text; }
     };
 
     template <typename T>
