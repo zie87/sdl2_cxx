@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-18 21:05:09
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 21:52:03
+* @Last Modified time: 2017-10-20 17:10:01
 *
 * @brief  Brief description of file.
 *
@@ -21,6 +21,11 @@
 
 namespace sdl2
 {
+  enum class button_state : uint8_t
+  {
+    released = SDL_RELEASED,
+    pressed = SDL_PRESSED
+  };
 
   enum class event_type : std::underlying_type_t<SDL_EventType>
   {

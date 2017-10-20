@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-18 21:26:49
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 05:36:40
+* @Last Modified time: 2017-10-20 17:22:59
 *
 * @brief  Brief description of file.
 *
@@ -15,6 +15,7 @@
 
 #include <SDL_events.h>
 #include <sdl2_cxx/events/event_types.hxx>
+#include <sdl2_cxx/events/mouse.hxx>
 
 namespace sdl2
 {
@@ -104,7 +105,7 @@ namespace sdl2
         constexpr auto timestamp() const { return event_data_holder<T>::get().timestamp; }
 
         constexpr auto windowID() const { return event_data_holder<T>::get().windowID; }
-        constexpr auto state() const { return event_data_holder<T>::get().state; }
+        constexpr button_state state() const { return static_cast<button_state>(event_data_holder<T>::get().state); }
         constexpr auto repeat() const { return event_data_holder<T>::get().repeat; }
 
         constexpr auto keysym() const { return event_data_holder<T>::get().keysym; }
@@ -166,6 +167,25 @@ namespace sdl2
         constexpr auto yrel() const { return event_data_holder<T>::get().yrel; }
     };
 
+    template <typename T>
+    class basic_event_view<T, decltype(SDL_Event::button)> : public event_data_holder<T> 
+    {
+      public:
+        using event_data_holder<T>::event_data_holder;
+        using event_data_holder<T>::operator=;
+
+        explicit constexpr basic_event_view(const SDL_Event& event) : event_data_holder<T>(event.button) {}
+
+        constexpr auto timestamp() const { return event_data_holder<T>::get().timestamp; }
+        constexpr auto windowID() const { return event_data_holder<T>::get().windowID; }
+        constexpr auto which() const { return event_data_holder<T>::get().which; }
+        constexpr button_state state() const { return static_cast<button_state>(event_data_holder<T>::get().state); }
+        constexpr auto x() const { return event_data_holder<T>::get().x; }
+        constexpr auto y() const { return event_data_holder<T>::get().y; }
+        constexpr auto clicks() const { return event_data_holder<T>::get().clicks; }
+        constexpr mouse::button button() const { return static_cast<mouse::button>( event_data_holder<T>::get().button ); }
+    };
+
   } // namespace detail
 
   template <event_type T = event_type::first>
@@ -175,6 +195,9 @@ namespace sdl2
   using window_event = detail::basic_event_view<decltype(SDL_Event::window)>;
   using key_event = detail::basic_event_view<decltype(SDL_Event::key)>;
   using text_editing_event = detail::basic_event_view<decltype(SDL_Event::edit)>;
+  using text_event = detail::basic_event_view<decltype(SDL_Event::text)>;
+  using motion_event = detail::basic_event_view<decltype(SDL_Event::motion)>;
+  using button_event = detail::basic_event_view<decltype(SDL_Event::button)>;
 
   template <typename T = std::nullptr_t>
   struct basic_event_traits 

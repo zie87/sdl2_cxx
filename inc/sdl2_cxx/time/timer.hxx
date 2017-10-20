@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-14 23:58:53
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 16:38:31
+* @Last Modified time: 2017-10-20 12:39:21
 *
 * @brief  Brief description of file.
 *
@@ -35,10 +35,11 @@ using time_point = clock::time_point;
 using duration = clock::duration;
 
 inline uint32_t ticks() noexcept { return SDL_GetTicks(); }
-inline uint64_t performance_counter() { return ::SDL_GetPerformanceCounter(); }
-inline uint64_t performance_frequency() { return ::SDL_GetPerformanceFrequency(); }
+inline uint64_t performance_counter() { return SDL_GetPerformanceCounter(); }
+inline uint64_t performance_frequency() { return SDL_GetPerformanceFrequency(); }
 
-inline void delay(duration interval) { ::SDL_Delay(interval.count()); }
+inline void delay( uint32_t interval ) { SDL_Delay(interval); }
+inline void delay( duration interval ) { SDL_Delay(interval.count()); }
 
 // todo: add wrapper for (callback) timer
 

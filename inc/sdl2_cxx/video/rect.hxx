@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 04:15:49
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 04:49:58
+* @Last Modified time: 2017-10-20 11:00:47
 *
 * @brief  Brief description of file.
 *
@@ -16,6 +16,8 @@
 #include <SDL_rect.h> 
 
 #include <sdl2_cxx/video/point.hxx>
+#include <sdl2_cxx/core/stdinc.hxx>
+
 #include <utility>
 
 namespace sdl2
