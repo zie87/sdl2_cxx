@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:07:32
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-17 06:35:44
+* @Last Modified time: 2017-10-21 13:32:11
 *
 * @brief  Brief description of file.
 *
@@ -28,11 +28,15 @@ TEST_CASE("check window wrapper", "[video]")
     const int h = 80;
 
     {
-      sdl2::window window(title, x, y, w, h);
+
       SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
+      auto sdl_flags = SDL_GetWindowFlags(sdl_win);
+      SDL_DestroyWindow(sdl_win);
+
+      sdl2::window window(title, x, y, w, h);
 
       REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
-      REQUIRE( SDL_GetWindowFlags(sdl_win) == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+      REQUIRE( sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
 
       int w_x = -1;
       int w_y = -1;
@@ -46,16 +50,17 @@ TEST_CASE("check window wrapper", "[video]")
       SDL_GetWindowSize(sdl2::to_sdl_type(window), &w_w, &w_h);
       REQUIRE(w == w_w);
       REQUIRE(h == w_h);
-
-      SDL_DestroyWindow(sdl_win);
     }
 
     {
+      SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), x, y, w, h, SDL_WINDOW_HIDDEN);
+      auto sdl_flags = SDL_GetWindowFlags(sdl_win);
+      SDL_DestroyWindow(sdl_win);
+
       sdl2::window window(title, w, h, sdl2::window_flags::hidden);
-      SDL_Window* sdl_win = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_HIDDEN);
 
       REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
-      REQUIRE( SDL_GetWindowFlags(sdl_win) == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+      REQUIRE( sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
 
       int w_x = -1;
       int w_y = -1;
