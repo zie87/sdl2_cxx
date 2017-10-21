@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-15 01:35:18
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 21:19:14
+* @Last Modified time: 2017-10-21 09:41:29
 *
 * @brief  Brief description of file.
 *
@@ -76,10 +76,10 @@ namespace sdl2
         static void debug(category category, const char *fmt, Args &&...args) noexcept { SDL_LogDebug(underlying_cast(category), fmt, std::forward<Args>(args)...);}
 
         template <typename ...Args>
-        static void information(category category, const char *fmt, Args &&...args) noexcept { SDL_LogInfo(underlying_cast(category), fmt, std::forward<Args>(args)...); }
+        static void info(category category, const char *fmt, Args &&...args) noexcept { SDL_LogInfo(underlying_cast(category), fmt, std::forward<Args>(args)...); }
 
         template <typename ...Args>
-        static void warning(category category, const char *fmt, Args &&...args) noexcept { SDL_LogWarn(underlying_cast(category), fmt, std::forward<Args>(args)...); }
+        static void warn(category category, const char *fmt, Args &&...args) noexcept { SDL_LogWarn(underlying_cast(category), fmt, std::forward<Args>(args)...); }
 
         template <typename ...Args>
         static void error(category category, const char *fmt, Args &&...args) noexcept { SDL_LogError(underlying_cast(category), fmt, std::forward<Args>(args)...); }
@@ -89,9 +89,6 @@ namespace sdl2
 
         template <typename ...Args>
         static void message(category category, priority priority, const char *fmt, Args &&...args) noexcept { SDL_LogMessage(underlying_cast(category), static_cast<SDL_LogPriority>(priority), fmt, std::forward<Args>(args)...); }
-
-        template <typename ...Args>
-        static void message(category category, priority priority, const char *fmt, va_list ap) noexcept { SDL_LogMessageV(underlying_cast(category), static_cast<SDL_LogPriority>(priority), fmt, ap); }
 
         static void output(callback *pcallback, void **puserdata) noexcept { SDL_LogGetOutputFunction(pcallback, puserdata); }
         static void output(callback callback, void *userdata) noexcept { SDL_LogSetOutputFunction(callback, userdata); }
