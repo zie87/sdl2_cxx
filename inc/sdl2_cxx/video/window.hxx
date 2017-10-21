@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-16 22:38:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-21 13:24:59
+* @Last Modified time: 2017-10-21 14:37:16
 *
 * @brief  Brief description of file.
 *
@@ -20,6 +20,7 @@
 #include <sdl2_cxx/detail/interfaces.hxx>
 
 #include <sdl2_cxx/core/error.hxx>
+#include <sdl2_cxx/video/surface.hxx>
 
 namespace sdl2
 {
@@ -64,6 +65,14 @@ namespace sdl2
     template <typename Derived>
     struct window_api 
     {
+      surface_ref get_surface() 
+      { 
+        SDL_Surface* sf( SDL_GetWindowSurface( to_sdl_type(*this) ) );
+        SDL2_CXX_CHECK( sf != nullptr ) ;
+        return surface_ref(sf);
+      }
+
+      void update_surface() { SDL2_CXX_CHECK( SDL_UpdateWindowSurface(to_sdl_type(*this)) >= 0 ); }
 
       explicit operator bool() const { return to_sdl_type(*this) != nullptr; }
 

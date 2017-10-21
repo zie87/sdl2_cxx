@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 06:00:07
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 06:04:59
+* @Last Modified time: 2017-10-21 16:43:13
 *
 * @brief  Brief description of file.
 *
@@ -14,7 +14,10 @@
 #define SDL2_CXX_VIDEO_PIXELS_HXX
 
 #include <SDL_pixels.h>
+
 #include <sdl2_cxx/core/stdinc.hxx>
+#include <sdl2_cxx/core/error.hxx>
+#include <sdl2_cxx/detail/wrapper.hxx>
 
 namespace sdl2
 {
@@ -63,6 +66,89 @@ namespace sdl2
     nv12        = SDL_PIXELFORMAT_NV12,
     nv21        = SDL_PIXELFORMAT_NV21
   };
+
+  namespace detail
+  {
+
+    template <typename Derived>
+    struct pixel_format_api
+    {
+      inline pixel_format_type format() const noexcept { return static_cast<pixel_format_type>(to_sdl_type(*this)->format); }
+
+      inline uint8_t bits_per_pixel() const noexcept { return to_sdl_type(*this)->BitsPerPixel; }
+      inline uint8_t bytes_per_pixel() const noexcept { return to_sdl_type(*this)->BytesPerPixel; }
+
+      inline uint32_t r_mask() const noexcept { return to_sdl_type(*this)->Rmask; }
+      inline uint32_t g_mask() const noexcept { return to_sdl_type(*this)->Gmask; }
+      inline uint32_t b_mask() const noexcept { return to_sdl_type(*this)->Bmask; }
+      inline uint32_t a_mask() const noexcept { return to_sdl_type(*this)->Amask; }
+
+      inline uint32_t map_rgb( uint8_t r,uint8_t g, uint8_t b ) { return SDL_MapRGB(to_sdl_type(*this), r, g, b); } 
+      inline uint32_t map_rgba( uint8_t r,uint8_t g, uint8_t b, uint8_t a ) { return SDL_MapRGBA(to_sdl_type(*this), r, g, b, a ); } 
+
+      inline void get_rgb(uint32_t pixel, uint8_t& r,uint8_t& g, uint8_t& b) { return SDL_GetRGB(pixel, to_sdl_type(*this), &r, &g, &b); } 
+      inline void get_rgba(uint32_t pixel, uint8_t& r,uint8_t& g, uint8_t& b, uint8_t& a) { return SDL_GetRGBA(pixel, to_sdl_type(*this), &r, &g, &b, &a); } 
+
+      inline friend SDL_PixelFormat* to_sdl_type(const pixel_format_api& f) { return to_sdl_type(static_cast<const Derived&>(f)); }
+
+      protected:
+        virtual ~pixel_format_api() = default;
+    };
+  } // namespace detail 
+
+
+  class pixel_format : public detail::pixel_format_api<pixel_format>
+  {
+    public:
+      explicit pixel_format(pixel_format_type format)
+      : m_format( SDL_AllocFormat( static_cast<uint32_t>(format) ) )
+      {
+        SDL2_CXX_CHECK( m_format != nullptr );
+      }
+
+      pixel_format(const pixel_format& f) noexcept : m_format(f.m_format.get()) { m_format->refcount += 1; }
+
+      pixel_format& operator=(const pixel_format& f) noexcept 
+      { 
+        m_format.reset( f.m_format.get() );
+        m_format->refcount += 1;
+
+        return *this; 
+      }
+
+      ~pixel_format() = default;
+    
+    private:
+      detail::sdl_ptr<SDL_PixelFormat, SDL_FreeFormat> m_format;
+
+      friend SDL_PixelFormat* to_sdl_type(const pixel_format&);
+  };
+
+  inline SDL_PixelFormat* to_sdl_type(const pixel_format& f) { return f.m_format.get(); }
+
+  class pixel_format_ref : public detail::pixel_format_api<pixel_format_ref>
+  {
+    public:
+      explicit pixel_format_ref(SDL_PixelFormat* format) noexcept : m_format( format ) {}
+
+      pixel_format_ref& operator=(SDL_PixelFormat* other) noexcept
+      {
+        m_format = other;
+        return *this;
+      }
+
+      virtual ~pixel_format_ref() = default;
+    
+    private:
+      SDL_PixelFormat* m_format = nullptr;
+
+      friend SDL_PixelFormat* to_sdl_type(const pixel_format_ref&);
+
+      friend bool operator==(const pixel_format_ref& lhs, const pixel_format_ref& rhs) { return lhs.m_format == rhs.m_format; }
+      friend bool operator!=(const pixel_format_ref& lhs, const pixel_format_ref& rhs) { return lhs.m_format != rhs.m_format; }
+  };
+
+  inline SDL_PixelFormat* to_sdl_type(const pixel_format_ref& f) { return f.m_format; }
 } // namespace sdl2;
 
 #endif
