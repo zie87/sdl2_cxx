@@ -10,8 +10,11 @@ file (GLOB TEST_SRC_FILES_EVENTS "${CMAKE_CURRENT_SOURCE_DIR}/events/*.cxx")
 file (GLOB TEST_SRC_FILES_TIME "${CMAKE_CURRENT_SOURCE_DIR}/time/*.cxx")
 file (GLOB TEST_SRC_FILES_VIDEO "${CMAKE_CURRENT_SOURCE_DIR}/video/*.cxx")
 
+set (PROJECT_TEST_LIBS ${SDL2_LIBRARY})
+
 if(SDL2_IMAGE_FOUND)
   file (GLOB TEST_SRC_FILES_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/image/*.cxx")
+  set (PROJECT_TEST_LIBS ${PROJECT_TEST_LIBS} ${SDL2_IMAGE_LIBRARY})
 endif()
 
 add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.cxx"
@@ -24,7 +27,7 @@ add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.
                                         # only if SDL2_image is availible
                                         "${TEST_SRC_FILES_IMAGE}"
     )
-target_link_libraries (${PROJECT_TEST_NAME} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
+target_link_libraries (${PROJECT_TEST_NAME} ${PROJECT_TEST_LIBS} )
 enable_testing()
 
 #parse catch tests
