@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-16 22:38:08
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 03:55:19
+* @Last Modified time: 2017-10-21 13:24:59
 *
 * @brief  Brief description of file.
 *
@@ -79,7 +79,8 @@ namespace sdl2
     public:
       explicit window(const std::string& title, int w, int h, window_flags flags = window_flags::none) : window(title, windowpos::undefined, windowpos::undefined, w, h, flags) {}
       explicit window(const std::string& title, int x, int y, int w, int h, window_flags flags = window_flags::none)
-      : detail::window_api<window>(), detail::noncopyable(), m_window( SDL_CreateWindow(title.c_str(), x, y, w, h, static_cast<std::underlying_type_t<window_flags>>(flags)) )
+      : detail::window_api<window>(), detail::noncopyable()
+      , m_window( SDL_CreateWindow(title.c_str(), x, y, w, h, (flags == window_flags::none) ? 0 : static_cast<std::underlying_type_t<window_flags>>(flags)) )
       {
         SDL2_CXX_CHECK( m_window != nullptr );
       }
