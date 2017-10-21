@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 03:43:23
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-21 16:52:09
+* @Last Modified time: 2017-10-21 17:42:05
 *
 * @brief  Brief description of file.
 *
@@ -42,14 +42,13 @@ namespace sdl2
       inline void blit( surface_api<T>& dst) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), nullptr, to_sdl_type(dst), nullptr ) == 0 ); }
 
       template<class T>
-      inline void blit( surface_api<T>& dst, const rect& dstrect) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), nullptr, to_sdl_type(dst), to_sdl_type(dstrect) ) == 0 ); }
+      inline void blit( surface_api<T>& dst, rect& dstrect) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), nullptr, to_sdl_type(dst), to_sdl_type(dstrect) ) == 0 ); }
 
       template<class T>
       inline void blit( const rect& srcrect, surface_api<T>& dst) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), to_sdl_type(srcrect), to_sdl_type(dst), nullptr ) == 0 ); }
 
       template<class T>
-      inline void blit( const rect& srcrect, surface_api<T>& dst, const rect& dstrect) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), to_sdl_type(srcrect), to_sdl_type(dst), to_sdl_type(dstrect) ) == 0 ); }
-
+      inline void blit( const rect& srcrect, surface_api<T>& dst, rect& dstrect) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), to_sdl_type(srcrect), to_sdl_type(dst), to_sdl_type(dstrect) ) == 0 ); }
 
       template<class T>
       inline void blit_scaled( surface_api<T>& dst) { SDL2_CXX_CHECK( SDL_BlitScaled( to_sdl_type(*this), nullptr, to_sdl_type(dst), nullptr ) == 0 ); }
@@ -84,6 +83,12 @@ namespace sdl2
       { 
         m_surface = std::move(sf.m_surface);
         return *this; 
+      }
+
+      surface(int width, int height, int depth, uint32_t r_mask, uint32_t g_mask, uint32_t b_mask, uint32_t a_mask )
+      : m_surface(SDL_CreateRGBSurface( 0, width, height, depth, r_mask, g_mask, b_mask, a_mask ))
+      {
+        SDL2_CXX_CHECK( m_surface != nullptr );
       }
 
       template <typename S, typename P>
