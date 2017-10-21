@@ -42,6 +42,11 @@ before_build:
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.6\lib\%PLATFORM%\* %PREFIX%\lib > nul
 
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.1-VC.zip
+    %NEEDDEPENDS% %MSVC% 7z x SDL2_image-devel-2.0.1-VC.zip > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\include\* %PREFIX%\include > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\lib\%PLATFORM%\* %PREFIX%\lib > nul
+
   - cd %APPVEYOR_BUILD_FOLDER%
   #Cmake will autodetect the compiler, but we set the arch
   - cmake -H. -BBuild -A%PLATFORM% -DCMAKE_PREFIX_PATH=%PREFIX%
