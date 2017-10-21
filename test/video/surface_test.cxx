@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 03:59:33
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-21 10:28:40
+* @Last Modified time: 2017-10-21 12:29:19
 *
 * @brief  Brief description of file.
 *
@@ -19,35 +19,18 @@ TEST_CASE("check surface wrapper", "[video]")
 {
   SDL_VideoInit(NULL);
 
-  SECTION("Basic construction test") 
-  {
-    // sdl2::window window("renderer test window", 120, 80);
-    // {
-    //   try
-    //   {
-    //     {
-    //       sdl2::renderer renderer(window);
-    //       renderer.clear();
-    //       renderer.present();
-    //     }
-    //     {
-    //       sdl2::renderer renderer(window, sdl2::renderer_flags::software);
-    //       renderer.clear();
-    //       renderer.present();
-    //     }
-    //   } catch(...)
-    //   {
-    //     REQUIRE(false);
-    //   }
-    // }
-  }
-
   SECTION("load functions")
   {
     try
     {
       {
-        sdl2::surface surface = sdl2::load_bmp(TEST_DATA"/rider.bmp");
+        const std::string test_file( TEST_DATA"/rider.bmp" );
+        const int width = 123;
+        const int height = 87;
+
+        sdl2::surface bmp_sf = sdl2::surface::load_bmp(test_file);
+        REQUIRE( width  == bmp_sf.width() );
+        REQUIRE( height == bmp_sf.height() );
       }
     } catch(...)
     {

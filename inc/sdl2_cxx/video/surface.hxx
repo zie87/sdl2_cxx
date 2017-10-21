@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 03:43:23
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 05:24:24
+* @Last Modified time: 2017-10-21 12:28:56
 *
 * @brief  Brief description of file.
 *
@@ -23,6 +23,8 @@ namespace sdl2
   class surface final
   {
     public:
+      static surface load_bmp(const std::string& bmp_path) { return surface(SDL_LoadBMP(bmp_path.c_str())); }
+
       surface(const surface& sf) noexcept : m_surface(sf.m_surface.get()) { m_surface->refcount += 1; }
       surface& operator=(surface sf) noexcept 
       { 
@@ -37,6 +39,11 @@ namespace sdl2
         return *this; 
       }
 
+
+      inline int width() const noexcept { return m_surface->w; }
+      inline int height() const noexcept { return m_surface->h; }
+
+
     private:
       explicit surface(SDL_Surface* s) : m_surface(s) { SDL2_CXX_CHECK( m_surface != nullptr );}
 
@@ -48,8 +55,6 @@ namespace sdl2
 
   inline surface to_cxx_type(SDL_Surface* s) { return surface(s); } ;
   inline SDL_Surface* to_sdl_type(const surface& s) noexcept { return s.m_surface.get(); }
-
-  static surface load_bmp(const std::string& bmp_path) { return to_cxx_type(SDL_LoadBMP(bmp_path.c_str())); }
 
 } // namespace sdl2
 
