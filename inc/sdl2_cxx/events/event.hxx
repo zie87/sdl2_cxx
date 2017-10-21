@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-18 21:26:49
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 18:28:32
+* @Last Modified time: 2017-10-21 10:09:18
 *
 * @brief  Brief description of file.
 *
@@ -14,6 +14,7 @@
 #define SDL2_CXX_EVENTS_EVENT_HXX
 
 #include <SDL_events.h>
+
 #include <sdl2_cxx/events/event_types.hxx>
 #include <sdl2_cxx/events/mouse.hxx>
 #include <sdl2_cxx/events/scancode.hxx>

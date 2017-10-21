@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 03:59:33
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 04:04:27
+* @Last Modified time: 2017-10-21 10:28:40
 *
 * @brief  Brief description of file.
 *
@@ -48,8 +48,6 @@ TEST_CASE("check surface wrapper", "[video]")
     {
       {
         sdl2::surface surface = sdl2::load_bmp(TEST_DATA"/rider.bmp");
-      }
-      {
       }
     } catch(...)
     {
