@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 16:50:21
+* @Last Modified time: 2017-10-22 19:39:39
 *
 * @brief  Brief description of file.
 *
@@ -23,6 +23,7 @@
 #include <sdl2_cxx/core/stdinc.hxx>
 
 #include <sdl2_cxx/video/rect.hxx>
+#include <sdl2_cxx/video/blendmode.hxx>
 #include <sdl2_cxx/video/window.hxx>
 #include <sdl2_cxx/video/surface.hxx>
 #include <sdl2_cxx/video/pixels.hxx>
@@ -142,28 +143,47 @@ namespace sdl2
     template <typename Derived>
     struct texture_api 
     {
-      void query_dimension( int& w, int& h) const { SDL2_CXX_CHECK( (SDL_QueryTexture(to_sdl_type(*this), NULL, NULL, &w, &h) >= 0 ) ); }
-      pixel_format_type query_format() const 
+      inline void query_dimension( int& w, int& h) const { SDL2_CXX_CHECK( (SDL_QueryTexture(to_sdl_type(*this), NULL, NULL, &w, &h) >= 0 ) ); }
+      inline pixel_format_type query_format() const 
       {
         uint32_t format = SDL_PIXELFORMAT_UNKNOWN;
         SDL2_CXX_CHECK( (SDL_QueryTexture(to_sdl_type(*this), &format, NULL, NULL, NULL) >= 0 ) );
         return static_cast<pixel_format_type>(format);
       }
 
-      texture_access query_access() const
+      inline texture_access query_access() const
       {
         int access = -1;
         SDL2_CXX_CHECK( (SDL_QueryTexture(to_sdl_type(*this), NULL, &access, NULL, NULL) >= 0 ) );
         return static_cast<texture_access>(access);
       }
 
-      void query( pixel_format_type& format, texture_access& access, int& w, int& h) const
+      inline void query( pixel_format_type& format, texture_access& access, int& w, int& h) const
       {
         uint32_t f = SDL_PIXELFORMAT_UNKNOWN;
         int a = -1;
         SDL2_CXX_CHECK( (SDL_QueryTexture(to_sdl_type(*this), &f, &a, &w, &h) >= 0 ) );
         format = static_cast<pixel_format_type>(f);
         access = static_cast<texture_access>(a);
+      }
+
+      inline void set_color_mod( uint8_t r, uint8_t g, uint8_t b ) { SDL2_CXX_CHECK( (SDL_SetTextureColorMod( to_sdl_type(*this), r, g, b ) >= 0 ) ); }
+      inline void get_color_mod( uint8_t& r, uint8_t& g, uint8_t& b ) { SDL2_CXX_CHECK( (SDL_GetTextureColorMod( to_sdl_type(*this), &r, &g, &b ) >= 0 ) ); }
+
+      inline void set_alpha_mode( uint8_t a ) { SDL2_CXX_CHECK( (SDL_SetTextureAlphaMod( to_sdl_type(*this), a ) >= 0 ) ); }
+      inline uint8_t get_alpha_mode() 
+      { 
+        uint8_t a = 0;
+        SDL2_CXX_CHECK( (SDL_GetTextureAlphaMod( to_sdl_type(*this), &a ) >= 0 ) ); 
+        return a;
+      }
+
+      inline void set_blendmode( blend::mode mode ) { SDL2_CXX_CHECK( (SDL_SetTextureBlendMode( to_sdl_type(*this), static_cast<SDL_BlendMode>(mode) ) >= 0 ) ); }
+      inline blend::mode get_blendmode() const 
+      {
+        SDL_BlendMode mode;
+        SDL2_CXX_CHECK( (SDL_GetTextureBlendMode( to_sdl_type(*this), &mode ) >= 0 ) );
+        return static_cast<blend::mode>(mode);
       }
 
       explicit operator bool() const noexcept { return to_sdl_type(*this) != nullptr; }
