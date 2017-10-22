@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 20:20:12
+* @Last Modified time: 2017-10-22 20:34:49
 *
 * @brief  Brief description of file.
 *
@@ -73,13 +73,13 @@ namespace sdl2
       inline void clear() { SDL2_CXX_CHECK( (SDL_RenderClear(to_sdl_type(*this))) >= 0 ); }
       inline void present() noexcept { SDL_RenderPresent(to_sdl_type(*this)); }
 
-      inline void entrie_copy( texture& t) { SDL2_CXX_CHECK( SDL_RenderCopy(to_sdl_type(*this), to_sdl_type(t), nullptr, nullptr) >= 0 ); }
-      inline void entrie_copy( texture& t, const rect& dst) { SDL2_CXX_CHECK( SDL_RenderCopy(to_sdl_type(*this), to_sdl_type(t), nullptr, to_sdl_type(dst)) >= 0 ); }
+      inline void entire_copy( texture& t) { SDL2_CXX_CHECK( SDL_RenderCopy(to_sdl_type(*this), to_sdl_type(t), nullptr, nullptr) >= 0 ); }
+      inline void entire_copy( texture& t, const rect& dst) { SDL2_CXX_CHECK( SDL_RenderCopy(to_sdl_type(*this), to_sdl_type(t), nullptr, to_sdl_type(dst)) >= 0 ); }
 
-      inline void entrie_copy( texture& t, const double angle, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, nullptr, angle, nullptr, static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
-      inline void entrie_copy( texture& t, const double angle, const point& p, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, nullptr, angle, to_sdl_type(p), static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
-      inline void entrie_copy( texture& t, const rect& dst, const double angle, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, to_sdl_type(dst), angle, nullptr, static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
-      inline void entrie_copy( texture& t, const rect& dst, const double angle, const point& p, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, to_sdl_type(dst), angle, to_sdl_type(p), static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
+      inline void entire_copy( texture& t, const double angle, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, nullptr, angle, nullptr, static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
+      inline void entire_copy( texture& t, const double angle, const point& p, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, nullptr, angle, to_sdl_type(p), static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
+      inline void entire_copy( texture& t, const rect& dst, const double angle, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, to_sdl_type(dst), angle, nullptr, static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
+      inline void entire_copy( texture& t, const rect& dst, const double angle, const point& p, renderer_flip flip = renderer_flip::none ) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), nullptr, to_sdl_type(dst), angle, to_sdl_type(p), static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
 
       inline void copy( texture& t, const rect& src) { SDL2_CXX_CHECK( SDL_RenderCopy(to_sdl_type(*this), to_sdl_type(t), to_sdl_type(src), nullptr) >= 0 ); }
       inline void copy( texture& t, const rect& src, const rect& dst) { SDL2_CXX_CHECK( SDL_RenderCopy(to_sdl_type(*this), to_sdl_type(t), to_sdl_type(src), to_sdl_type(dst)) >= 0 ); }
