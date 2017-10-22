@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-19 17:26:32
+* @Last Modified time: 2017-10-22 16:50:21
 *
 * @brief  Brief description of file.
 *
@@ -61,6 +61,14 @@ namespace sdl2
       inline void set_draw_color( uint8_t r, uint8_t g, uint8_t b, uint8_t a ) { SDL2_CXX_CHECK( (SDL_SetRenderDrawColor(to_sdl_type(*this), r, g, b, a) >= 0 ) ); }
       inline void get_draw_color( uint8_t& r, uint8_t& g, uint8_t& b, uint8_t& a ) const { SDL2_CXX_CHECK( (SDL_GetRenderDrawColor(to_sdl_type(*this), &r, &g, &b, &a) >= 0 ) ); }
 
+      inline void set_viewport( const rect& vp ) { SDL2_CXX_CHECK( (SDL_RenderSetViewport(to_sdl_type(*this), to_sdl_type(vp)) >= 0) ); }
+      inline rect get_viewport() const noexcept 
+      {
+        SDL_Rect r{0,0,0,0};
+        SDL_RenderGetViewport( to_sdl_type(*this), &r );
+        return rect(r);
+      }
+
       inline void clear() { SDL2_CXX_CHECK( (SDL_RenderClear(to_sdl_type(*this))) >= 0 ); }
       inline void present() noexcept { SDL_RenderPresent(to_sdl_type(*this)); }
 
@@ -79,6 +87,17 @@ namespace sdl2
       inline void copy( texture& t, const rect& src, const double angle, const point& p, renderer_flip flip = renderer_flip::none) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), to_sdl_type(src), nullptr, angle, to_sdl_type(p), static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
       inline void copy( texture& t, const rect& src, const rect& dst, const double angle, renderer_flip flip = renderer_flip::none) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), to_sdl_type(src), to_sdl_type(dst), angle, nullptr, static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
       inline void copy( texture& t, const rect& src, const rect& dst, const double angle, const point& p, renderer_flip flip = renderer_flip::none) { SDL2_CXX_CHECK( SDL_RenderCopyEx(to_sdl_type(*this), to_sdl_type(t), to_sdl_type(src), to_sdl_type(dst), angle, to_sdl_type(p), static_cast<SDL_RendererFlip>(flip)) >= 0 ); }
+
+      inline void fill( const rect& dst ) { SDL2_CXX_CHECK( SDL_RenderFillRect( to_sdl_type(*this), to_sdl_type(dst) ) >= 0 ); }
+
+      inline void draw() { SDL2_CXX_CHECK( SDL_RenderDrawRect( to_sdl_type(*this), nullptr ) >= 0 ); }
+      inline void draw( const rect& r ) { SDL2_CXX_CHECK( SDL_RenderDrawRect( to_sdl_type(*this), to_sdl_type(r) ) >= 0 ); }
+
+      inline void draw( const point& p ) { SDL2_CXX_CHECK( SDL_RenderDrawPoint( to_sdl_type(*this), p.x(), p.y() ) >= 0 ); }
+      inline void draw( int x, int y ) { SDL2_CXX_CHECK( SDL_RenderDrawPoint( to_sdl_type(*this), x, y ) >= 0 ); }
+
+      inline void draw( const point& p1, const point& p2 ) { SDL2_CXX_CHECK( SDL_RenderDrawLine( to_sdl_type(*this), p1.x(), p1.y(), p2.x(), p2.y() ) >= 0 ); }
+      inline void draw( int x1, int y1, int x2, int y2 ) { SDL2_CXX_CHECK( SDL_RenderDrawLine( to_sdl_type(*this), x1, y1, x2, y2 ) >= 0 ); }
 
       explicit operator bool() const noexcept { return to_sdl_type(*this) != nullptr; }
 

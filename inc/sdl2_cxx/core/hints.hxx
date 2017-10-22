@@ -1,9 +1,9 @@
 /**
-* @file   hint.hxx
+* @file   hints.hxx
 * @Author: zie87
 * @Date:   2017-10-22 14:41:16
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 16:04:20
+* @Last Modified time: 2017-10-22 16:08:03
 *
 * @brief  Brief description of file.
 *
@@ -237,7 +237,6 @@ namespace sdl2
 
     static inline value_type get(hint_type name) noexcept { return SDL_GetHint(to_sdl_type(name)); }
     static bool get(hint_type name, bool default_value) noexcept { return (SDL_GetHintBoolean(to_sdl_type(name), default_value ? SDL_TRUE : SDL_FALSE) == SDL_TRUE); }
-
 
     static void clear() noexcept { SDL_ClearHints(); }
 

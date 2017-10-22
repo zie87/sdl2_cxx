@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:07:32
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 19:22:12
+* @Last Modified time: 2017-10-22 16:54:45
 *
 * @brief  Brief description of file.
 *
@@ -76,6 +76,24 @@ TEST_CASE("check renderer wrapper", "[video]")
     REQUIRE( g == g_tmp );
     REQUIRE( b == b_tmp );
     REQUIRE( a == a_tmp );
+  }
+
+  SECTION("viewport functions")
+  {
+    constexpr int w = 120;
+    constexpr int h = 80;
+
+    sdl2::window window("renderer test window", 120, 80);
+    sdl2::renderer renderer(window);
+
+    sdl2::rect vp(10, 10, w/2, h/2);
+    renderer.set_viewport(vp);
+    auto vp_ret = renderer.get_viewport();
+
+    REQUIRE( vp.x() == vp_ret.x() );
+    REQUIRE( vp.y() == vp_ret.y() );
+    REQUIRE( vp.width() == vp_ret.width() );
+    REQUIRE( vp.height() == vp_ret.height() );
   }
 
   SDL_VideoQuit();

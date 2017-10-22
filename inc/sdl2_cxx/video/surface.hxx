@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 03:43:23
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-21 17:42:05
+* @Last Modified time: 2017-10-22 17:43:03
 *
 * @brief  Brief description of file.
 *
@@ -35,8 +35,21 @@ namespace sdl2
       inline pixel_format_ref format() const noexcept { return pixel_format_ref( to_sdl_type(*this)->format ); }
       inline pixel_format_type format_type() const noexcept { return format().format(); }
 
-      inline void fill( uint8_t r, uint8_t g, uint8_t b ) { SDL2_CXX_CHECK( SDL_FillRect( to_sdl_type(*this), nullptr, SDL_MapRGB( to_sdl_type(*this)->format, r, g, b) ) == 0 ); }
-      inline void fill( const rect& dst, uint8_t r, uint8_t g, uint8_t b ) { SDL2_CXX_CHECK( SDL_FillRect( to_sdl_type(*this), to_sdl_type(dst), SDL_MapRGB( to_sdl_type(*this)->format, r, g, b) ) >= 0 ); }
+      inline void fill( uint32_t key ) { SDL2_CXX_CHECK( SDL_FillRect( to_sdl_type(*this), nullptr, key ) == 0 ); }
+      inline void fill( uint8_t r, uint8_t g, uint8_t b ) { fill( SDL_MapRGB( to_sdl_type(*this)->format, r, g, b) ); }
+
+      inline void fill( const rect& dst, uint32_t key ) { SDL2_CXX_CHECK( SDL_FillRect( to_sdl_type(*this), to_sdl_type(dst), key ) == 0 ); }
+      inline void fill( const rect& dst, uint8_t r, uint8_t g, uint8_t b ) { fill(dst, SDL_MapRGB( to_sdl_type(*this)->format, r, g, b) ); }
+
+      inline void set_color_key( bool enable, uint32_t key ) { SDL2_CXX_CHECK( SDL_SetColorKey( to_sdl_type(*this), enable? SDL_TRUE : SDL_FALSE, key ) == 0 ); }
+      inline void set_color_key( bool enable, uint8_t r, uint8_t g, uint8_t b ) { set_color_key(enable, SDL_MapRGB( to_sdl_type(*this)->format, r, g, b) ); }
+
+      inline uint32_t get_color_key() const 
+      {  
+        uint32_t key = 0;
+        SDL2_CXX_CHECK( SDL_GetColorKey( to_sdl_type(*this), key ) == 0 );
+        return key;
+      }
 
       template<class T>
       inline void blit( surface_api<T>& dst) { SDL2_CXX_CHECK( SDL_BlitSurface( to_sdl_type(*this), nullptr, to_sdl_type(dst), nullptr ) == 0 ); }
