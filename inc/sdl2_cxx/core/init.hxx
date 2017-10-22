@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-09 21:28:25
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 21:19:09
+* @Last Modified time: 2017-10-22 13:56:48
 *
 * @brief  Brief description of file.
 *
@@ -44,6 +44,9 @@ namespace sdl2
         init_guard() : init_guard(init_flags::everything) {}
         explicit init_guard(init_flags flag) { SDL2_CXX_CHECK(::SDL_Init( static_cast<std::underlying_type_t<init_flags>>(flag) ) == 0);   }
         explicit init_guard(std::initializer_list<init_flags> flags) { SDL2_CXX_CHECK(::SDL_Init( combine(flags) ) == 0);  }
+
+        init_guard(init_guard&&) noexcept = default;
+        init_guard& operator=(init_guard&&) noexcept = default;
 
         ~init_guard() { ::SDL_Quit(); }
     };
