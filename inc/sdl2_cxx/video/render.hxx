@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-17 05:48:55
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 19:39:39
+* @Last Modified time: 2017-10-22 20:20:12
 *
 * @brief  Brief description of file.
 *
@@ -116,6 +116,18 @@ namespace sdl2
       explicit renderer(const window& win, renderer_flags flags = renderer_flags::none) : renderer(win, -1, flags) {}
       explicit renderer(const window& win, int idx, renderer_flags flags = renderer_flags::none)
       : detail::renderer_api<renderer>(), detail::noncopyable(), m_renderer( SDL_CreateRenderer(to_sdl_type(win), idx, static_cast<std::underlying_type_t<renderer_flags>>(flags)) )
+      {
+        SDL2_CXX_CHECK( m_renderer != nullptr );
+      }
+
+      explicit renderer(const window& win, std::initializer_list<renderer_flags> flags)
+      : detail::renderer_api<renderer>(), detail::noncopyable(), m_renderer( SDL_CreateRenderer(to_sdl_type(win), -1, combine(flags)) )
+      {
+        SDL2_CXX_CHECK( m_renderer != nullptr );
+      }
+
+      explicit renderer(const window& win, int idx, std::initializer_list<renderer_flags> flags)
+      : detail::renderer_api<renderer>(), detail::noncopyable(), m_renderer( SDL_CreateRenderer(to_sdl_type(win), idx, combine(flags)) )
       {
         SDL2_CXX_CHECK( m_renderer != nullptr );
       }
