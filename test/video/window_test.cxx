@@ -19,7 +19,7 @@ TEST_CASE("check window wrapper", "[video]")
 {
   SDL_VideoInit(NULL);
 
-  SECTION("Basic construction test") 
+  SECTION("basic construction test") 
   {
     const std::string title("construction test test");
     const int x = 10;
@@ -124,7 +124,7 @@ TEST_CASE("check window wrapper", "[video]")
     }
   }
 
-  SECTION("Screen test")
+  SECTION("screen test")
   {
     try
     {

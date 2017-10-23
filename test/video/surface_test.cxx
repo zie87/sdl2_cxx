@@ -19,7 +19,7 @@ TEST_CASE("check surface wrapper", "[video]")
 {
   SDL_VideoInit(NULL);
 
-  SECTION("load functions")
+  SECTION("load and creation functions")
   {
     try
     {
@@ -29,8 +29,25 @@ TEST_CASE("check surface wrapper", "[video]")
         const int height = 87;
 
         sdl2::surface bmp_sf = sdl2::surface::load_bmp(test_file);
+        REQUIRE( bmp_sf );
         REQUIRE( width  == bmp_sf.width() );
         REQUIRE( height == bmp_sf.height() );
+      
+        REQUIRE( 1 == bmp_sf.ref_count()  );
+        {
+          sdl2::surface copy_sf( bmp_sf );
+          REQUIRE( 2 == bmp_sf.ref_count()  );
+        }
+        REQUIRE( 1 == bmp_sf.ref_count()  );
+
+        sdl2::surface color_sf( 30, 40, 1, 100, 110, 120, 255 );
+        REQUIRE( color_sf );
+        REQUIRE( 30  == color_sf.width() );
+        REQUIRE( 40 == color_sf.height() );
+
+        color_sf = bmp_sf;
+        REQUIRE( color_sf );
+        REQUIRE( 2 == bmp_sf.ref_count()  );
       }
     } catch(...)
     {

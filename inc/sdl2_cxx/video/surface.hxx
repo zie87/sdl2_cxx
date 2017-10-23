@@ -1,14 +1,14 @@
-/**
-* @file   surface.hxx
-* @Author: zie87
-* @Date:   2017-10-19 03:43:23
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 17:43:03
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+/** 
+ *  @file    surface.hxx
+ *  @author  zie87
+ *  @date    2017-10-19 03:43:23
+ *  @version 2017-10-23 20:06:16
+ *  
+ *  @brief Brief description of file.
+ *
+ *  Detailed description of file.
+ *
+ **/
 
 #ifndef SDL2_CXX_VIDEO_SURFACE_HXX
 #define SDL2_CXX_VIDEO_SURFACE_HXX
