@@ -33,6 +33,9 @@ FILTER_PATTERNS        = *.md
 # README file is the main page
 USE_MDFILE_AS_MAINPAGE = @CMAKE_SOURCE_DIR@/README.md
 
+EXTRACT_ALL            = YES
+INLINE_INFO            = YES
+
 GENERATE_TODOLIST      = YES
 GENERATE_TESTLIST      = YES
 GENERATE_BUGLIST       = YES
@@ -53,7 +56,6 @@ CALLER_GRAPH           = YES
 
 DOT_IMAGE_FORMAT       = svg
 INTERACTIVE_SVG        = YES
-
 
 # Include timestamp
 HTML_TIMESTAMP         = YES

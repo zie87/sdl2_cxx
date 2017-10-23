@@ -1,11 +1,14 @@
-/**
-* @author: zie87
-* @date:   2017-10-23 19:27:19 last modified: 2017-10-23 19:27:19
-*
-* @brief  Header file for window functionality
-*
-* This file manly wrapps the window related content of `SDl_video.h`
-**/
+/** 
+ *  @file    window.hxx
+ *  @author  zie87
+ *  @date    2017-10-23 19:53:49
+ *  @version 2017-10-23 19:58:40
+ *  
+ *  @brief   Header file for window functionality
+ *
+ * This file manly wraps the window related content of `SDL_video.h`
+ *
+ **/
 
 #ifndef SDL2_CXX_VIDEO_WINDOW_HXX
 #define SDL2_CXX_VIDEO_WINDOW_HXX
