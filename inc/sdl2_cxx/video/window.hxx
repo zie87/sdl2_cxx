@@ -1,13 +1,10 @@
 /**
-* @file   window.hxx
-* @Author: zie87
-* @Date:   2017-10-16 22:38:08
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-21 14:37:16
+* @author: zie87
+* @date:   2017-10-23 19:27:19 last modified: 2017-10-23 19:27:19
 *
-* @brief  Brief description of file.
+* @brief  Header file for window functionality
 *
-* Detailed description of file.
+* This file manly wrapps the window related content of `SDl_video.h`
 **/
 
 #ifndef SDL2_CXX_VIDEO_WINDOW_HXX
@@ -24,6 +21,12 @@
 
 namespace sdl2
 {
+  /**
+   * @brief An enumeration of window states. 
+   * @details Flags passed to the `sdl2::window` constructor
+   * 
+   * @sa window_api::get_flags()
+   */
   enum class window_flags : std::underlying_type_t<SDL_WindowFlags>
   {
     none                = 0,
@@ -38,7 +41,7 @@ namespace sdl2
     input_grabbed       = SDL_WINDOW_INPUT_GRABBED,      /**< window has grabbed input focus */
     input_focus         = SDL_WINDOW_INPUT_FOCUS,        /**< window has input focus */
     mouse_focus         = SDL_WINDOW_MOUSE_FOCUS,        /**< window has mouse focus */
-    fullscreen_desktop  = SDL_WINDOW_FULLSCREEN_DESKTOP,
+    fullscreen_desktop  = SDL_WINDOW_FULLSCREEN_DESKTOP, /**< window is fullscreen in desktop mode */
     foreign             = SDL_WINDOW_FOREIGN,            /**< window not created by SDL */
     allow_highdpi       = SDL_WINDOW_ALLOW_HIGHDPI,      /**< window should be created in high-DPI mode if supported */
     mouse_capture       = SDL_WINDOW_MOUSE_CAPTURE,      /**< window has mouse captured (unrelated to INPUT_GRABBED) */
@@ -50,13 +53,16 @@ namespace sdl2
     vulkan              = SDL_WINDOW_VULKAN              /**< window usable for Vulkan surface */
   };
 
+  /**
+   * help structur to enable or-operator on `sdl2::window_flags`
+   */
   template<>
   struct enable_bitmask_operators<window_flags>{ static const bool enable = true; };
 
   namespace windowpos 
   {
-      constexpr int undefined = SDL_WINDOWPOS_UNDEFINED;
-      constexpr int centered = SDL_WINDOWPOS_CENTERED;
+      constexpr int undefined = SDL_WINDOWPOS_UNDEFINED; /**< use to indicate that you don't care what the window position is. */
+      constexpr int centered = SDL_WINDOWPOS_CENTERED; /**< used to indicate that the window position should be centered */
   }
 
 
@@ -65,14 +71,16 @@ namespace sdl2
     template <typename Derived>
     struct window_api 
     {
-      surface_ref get_surface() 
+      inline surface_ref get_surface() const 
       { 
         SDL_Surface* sf( SDL_GetWindowSurface( to_sdl_type(*this) ) );
         SDL2_CXX_CHECK( sf != nullptr ) ;
         return surface_ref(sf);
       }
 
-      void update_surface() { SDL2_CXX_CHECK( SDL_UpdateWindowSurface(to_sdl_type(*this)) >= 0 ); }
+      inline void update_surface() { SDL2_CXX_CHECK( SDL_UpdateWindowSurface(to_sdl_type(*this)) >= 0 ); }
+
+      inline uint32_t get_flags() const noexcept { return SDL_GetWindowFlags(to_sdl_type(*this)); }
 
       explicit operator bool() const { return to_sdl_type(*this) != nullptr; }
 
@@ -88,8 +96,13 @@ namespace sdl2
     public:
       explicit window(const std::string& title, int w, int h, window_flags flags = window_flags::none) : window(title, windowpos::undefined, windowpos::undefined, w, h, flags) {}
       explicit window(const std::string& title, int x, int y, int w, int h, window_flags flags = window_flags::none)
-      : detail::window_api<window>(), detail::noncopyable()
-      , m_window( SDL_CreateWindow(title.c_str(), x, y, w, h, (flags == window_flags::none) ? 0 : static_cast<std::underlying_type_t<window_flags>>(flags)) )
+      : m_window( SDL_CreateWindow(title.c_str(), x, y, w, h, (flags == window_flags::none) ? 0 : static_cast<std::underlying_type_t<window_flags>>(flags)) )
+      {
+        SDL2_CXX_CHECK( m_window != nullptr );
+      }
+
+      explicit window(const std::string& title, int x, int y, int w, int h, std::initializer_list<window_flags> flags)
+      : m_window( SDL_CreateWindow(title.c_str(), x, y, w, h, combine(flags) ) )
       {
         SDL2_CXX_CHECK( m_window != nullptr );
       }
