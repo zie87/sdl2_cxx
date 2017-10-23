@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-22 21:01:52
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-23 05:36:07
+* @Last Modified time: 2017-10-23 17:56:14
 *
 * @brief  Brief description of file.
 *
@@ -49,7 +49,7 @@ do {                                                      \
 
 
 /// \todo change struct to namespace
-struct ttf 
+namespace ttf 
 {
   struct init_guard
   {
@@ -77,29 +77,80 @@ struct ttf
     unicode
   };
 
-  class font final : detail::noncopyable
+  namespace detail
+  {
+    template<text_type T>
+    struct text_generator
+    {};
+
+    template<>
+    struct text_generator<text_type::text>
+    {
+      static inline SDL_Surface* render_solid( TTF_Font* font, const char* text, const SDL_Color* c)
+      {
+        SDL_Surface* sf = TTF_RenderText_Solid( font, text, *c );
+        SDL2_CXX_TTF_CHECK( sf != nullptr );
+        return sf;
+      }
+
+      static inline SDL_Surface* render_shaded( TTF_Font* font, const char* text, const SDL_Color* fg, const SDL_Color* bg )
+      {
+        SDL_Surface* sf = TTF_RenderText_Shaded( font, text, *fg, *bg );
+        SDL2_CXX_TTF_CHECK( sf != nullptr );
+        return sf;
+      }
+    };
+
+    template<>
+    struct text_generator<text_type::utf8>
+    {
+      static inline SDL_Surface* render_solid( TTF_Font* font, const char* text, const SDL_Color* c)
+      {
+        SDL_Surface* sf = TTF_RenderUTF8_Solid( font, text, *c );
+        SDL2_CXX_TTF_CHECK( sf != nullptr );
+        return sf;
+      }
+
+      static inline SDL_Surface* render_shaded( TTF_Font* font, const char* text, const SDL_Color* fg, const SDL_Color* bg )
+      {
+        SDL_Surface* sf = TTF_RenderUTF8_Shaded( font, text, *fg, *bg );
+        SDL2_CXX_TTF_CHECK( sf != nullptr );
+        return sf;
+      }
+    };
+
+    template<>
+    struct text_generator<text_type::unicode>
+    {
+      static inline SDL_Surface* render_solid( TTF_Font* font, const uint16_t* text, const SDL_Color* c)
+      {
+        SDL_Surface* sf = TTF_RenderUNICODE_Solid( font, text, *c );
+        SDL2_CXX_TTF_CHECK( sf != nullptr );
+        return sf;
+      }
+
+      static inline SDL_Surface* render_shaded( TTF_Font* font, const uint16_t* text, const SDL_Color* fg, const SDL_Color* bg )
+      {
+        SDL_Surface* sf = TTF_RenderUNICODE_Shaded( font, text, *fg, *bg );
+        SDL2_CXX_TTF_CHECK( sf != nullptr );
+        return sf;
+      }
+    };
+  }
+
+  class font final : ::sdl2::detail::noncopyable
   {
     private:
-      /// \todo make generator template based
-      struct text_generator
-      {
-        static inline SDL_Surface* render_solid( TTF_Font* font, const char* text, const SDL_Color* c)
-        {
-          SDL_Surface* sf = TTF_RenderText_Solid( font, text, *c );
-          SDL2_CXX_TTF_CHECK( sf != nullptr );
-          return sf;
-        }
-      };
 
     public:
       explicit font(const std::string& file, int ptsize) 
-      : detail::noncopyable(), m_font( TTF_OpenFont(file.c_str(), ptsize ) )
+      : ::sdl2::detail::noncopyable(), m_font( TTF_OpenFont(file.c_str(), ptsize ) )
       {
         SDL2_CXX_TTF_CHECK( m_font != nullptr );
       }
 
       explicit font(const std::string& file, int ptsize, long idx) 
-      : detail::noncopyable(), m_font( TTF_OpenFontIndex(file.c_str(), ptsize, idx ) )
+      : ::sdl2::detail::noncopyable(), m_font( TTF_OpenFontIndex(file.c_str(), ptsize, idx ) )
       {
         SDL2_CXX_TTF_CHECK( m_font != nullptr );
       }
@@ -107,22 +158,34 @@ struct ttf
       font(font&& w): m_font(std::move(w.m_font)) {}
       font& operator=(font&& w) { m_font = std::move(w.m_font); return *this; }
 
-      /// \todo make generator template based
+      template<text_type T>
       inline surface render_solid( const std::string& text, const color& c )
       {
-        return to_cxx_type( text_generator::render_solid(to_sdl_type(*this), text.c_str(), to_sdl_type(c)) );
+        return to_cxx_type( detail::text_generator<T>::render_solid(to_sdl_type(*this), text.c_str(), to_sdl_type(c)) );
       }
 
+      inline surface render_solid( const uint16_t* text, const color& c )
+      {
+        return to_cxx_type( detail::text_generator<text_type::unicode>::render_solid(to_sdl_type(*this), text, to_sdl_type(c)) );
+      }
 
+      template<text_type T>
+      inline surface render_shaded( const std::string& text, const color& fg, const color& bg )
+      {
+        return to_cxx_type( detail::text_generator<T>::render_shaded(to_sdl_type(*this), text.c_str(), to_sdl_type(fg), to_sdl_type(bg)) );
+      }
+
+      inline surface render_shaded( const uint16_t* text, const color& fg, const color& bg )
+      {
+        return to_cxx_type( detail::text_generator<text_type::unicode>::render_shaded(to_sdl_type(*this), text, to_sdl_type(fg), to_sdl_type(bg)) );
+      }
+
+      friend TTF_Font* to_sdl_type(const font& f) noexcept { return f.m_font.get(); }
     private:
-      detail::sdl_ptr<TTF_Font, TTF_CloseFont> m_font = nullptr;
-
-      friend TTF_Font* to_sdl_type(const font&) noexcept;
+      ::sdl2::detail::sdl_ptr<TTF_Font, TTF_CloseFont> m_font = nullptr;
   };
 
-}; // struct ttf
-
-inline TTF_Font* to_sdl_type(const ttf::font& w) noexcept { return w.m_font.get(); }
+}; // namespace ttf
 
 } // namespace sdl2
 
