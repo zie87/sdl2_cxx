@@ -17,6 +17,12 @@ if(SDL2_IMAGE_FOUND)
   set (PROJECT_TEST_LIBS ${PROJECT_TEST_LIBS} ${SDL2_IMAGE_LIBRARY})
 endif()
 
+if(SDL2_TTF_FOUND)
+  file (GLOB TEST_SRC_FILES_FONTS "${CMAKE_CURRENT_SOURCE_DIR}/fonts/*.cxx")
+  set (PROJECT_TEST_LIBS ${PROJECT_TEST_LIBS} ${SDL2_TTF_LIBRARY})
+endif()
+
+
 add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.cxx"
                                         "${TEST_SRC_FILES_CORE}"  
                                         "${TEST_SRC_FILES_DETAIL}" 
@@ -26,6 +32,9 @@ add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.
 
                                         # only if SDL2_image is availible
                                         "${TEST_SRC_FILES_IMAGE}"
+
+                                        # only if SDL2_ttf is availible
+                                        "${TEST_SRC_FILES_FONTS}"
     )
 target_link_libraries (${PROJECT_TEST_NAME} ${PROJECT_TEST_LIBS} )
 enable_testing()

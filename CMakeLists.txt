@@ -33,6 +33,9 @@ include_directories (${SDL2_INCLUDE_DIR})
 include (FindSDL2_image)
 find_package(SDL2_image)
 
+include (FindSDL2_ttf)
+find_package(SDL2_ttf)
+
 add_subdirectory (3rd EXCLUDE_FROM_ALL)
 
 add_subdirectory(src)

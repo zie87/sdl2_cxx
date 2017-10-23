@@ -3,7 +3,7 @@
 * @Author: zie87
 * @Date:   2017-10-19 17:35:02
 * @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 14:22:17
+* @Last Modified time: 2017-10-23 05:25:31
 *
 * @brief  Brief description of file.
 *
@@ -22,11 +22,6 @@
 namespace sdl2 
 {
 
-struct image
-{
-  static surface load(const std::string& img_path) { return to_cxx_type(IMG_Load(img_path.c_str())); }
-};
-
 enum class img_flags : std::underlying_type_t<IMG_InitFlags>
 {
   jpg  = IMG_INIT_JPG,
@@ -38,30 +33,31 @@ enum class img_flags : std::underlying_type_t<IMG_InitFlags>
 template<>
 struct enable_bitmask_operators<img_flags>{ static const bool enable = true; };
 
-namespace img
+
+class img_exception : public exception 
 {
-  inline std::string last_error() 
+public:
+  static inline std::string last_error() 
   {
       std::string result(IMG_GetError());
       SDL_ClearError();
       return result;
   }
-} // img
 
-class img_exception : public exception 
-{
-public:
-    img_exception(): exception(img::last_error()) {}
-    img_exception(const std::string& str): exception(str) {}
+  img_exception(): exception(last_error()) {}
+  img_exception(const std::string& str): exception(str) {}
+  virtual ~img_exception() = default;
 };
 
 #define SDL2_CXX_IMG_CHECK(condition)                     \
 do {                                                      \
-    if (!(condition)) throw exception();                  \
+    if (!(condition)) throw img_exception();                  \
 } while (SDL_NULL_WHILE_LOOP_CONDITION);
 
 namespace img 
 {
+  surface load(const std::string& img_path) { return to_cxx_type(IMG_Load(img_path.c_str())); }
+
   struct init_guard
   {
       explicit init_guard(img_flags flag) { SDL2_CXX_IMG_CHECK(::IMG_Init( static_cast<std::underlying_type_t<img_flags>>(flag) ) > 0);   }

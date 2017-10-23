@@ -1,0 +1,62 @@
+# Project name
+PROJECT_NAME           = @PROJECT_NAME@
+
+# Project version, substituded by CMake
+PROJECT_NUMBER         = @SDL2_CXX_VERSION@
+
+# Project description
+PROJECT_BRIEF          = "C++ language bindings for sdl2"
+
+# Where to place generated files
+OUTPUT_DIRECTORY       = doxygen
+
+# No need for extra verbocity
+QUIET                  = YES
+
+# Process source and README file
+INPUT                  = @CMAKE_SOURCE_DIR@/inc/sdl2_cxx \
+                         @CMAKE_SOURCE_DIR@/README.md
+
+# Recurse into subdirectories
+RECURSIVE              = YES
+
+
+# Examples (doesn't work atm)
+EXAMPLE_PATH           = @CMAKE_SOURCE_DIR@/examples
+EXAMPLE_PATTERNS       = *.cxx
+EXAMPLE_RECURSIVE      = YES
+
+# Filter through sed to remove badges which Doxygen fails to process properly
+INPUT_FILTER           = "sed -e '/^\[!\[/d'"
+FILTER_PATTERNS        = *.md
+
+# README file is the main page
+USE_MDFILE_AS_MAINPAGE = @CMAKE_SOURCE_DIR@/README.md
+
+GENERATE_TODOLIST      = YES
+GENERATE_TESTLIST      = YES
+GENERATE_BUGLIST       = YES
+GENERATE_DEPRECATEDLIST= YES
+RECURSIVE              = YES
+
+SHOW_USED_FILES        = YES
+SOURCE_TOOLTIPS        = YES
+GENERATE_TREEVIEW      = YES
+
+UML_LOOK               = YES
+UML_LIMIT_NUM_FIELDS   = 100
+TEMPLATE_RELATIONS     = YES
+INCLUDE_GRAPH          = YES
+
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+
+
+# Include timestamp
+HTML_TIMESTAMP         = YES
+
+# We target web, no latex needed
+GENERATE_LATEX         = NO
