@@ -1,5 +1,5 @@
 
 
 
-add_executable (example_01    "${CMAKE_CURRENT_SOURCE_DIR}/example_01.cxx" )
-target_link_libraries (example_01 ${SDL2_LIBRARY})
+add_executable (01_example_hello_sdl    "${CMAKE_CURRENT_SOURCE_DIR}/01_example_hello_sdl.cxx" )
+target_link_libraries (01_example_hello_sdl ${SDL2_LIBRARY})
