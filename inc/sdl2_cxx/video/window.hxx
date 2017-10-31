@@ -2,7 +2,7 @@
  *  @file    window.hxx
  *  @author  zie87
  *  @date    2017-10-23 19:53:49
- *  @version 2017-10-23 19:58:40
+ *  @version 2017-10-24 05:38:20
  *  
  *  @brief   Header file for window functionality
  *
@@ -28,7 +28,7 @@ namespace sdl2
    * @brief An enumeration of window states. 
    * @details Flags passed to the `sdl2::window` constructor
    * 
-   * @sa window_api::get_flags()
+   * @sa `sdl2::window_api::get_flags`
    */
   enum class window_flags : std::underlying_type_t<SDL_WindowFlags>
   {
@@ -71,9 +71,28 @@ namespace sdl2
 
   namespace detail 
   {
+    /**
+     * @brief window base class
+     * @details this class provides the api implementation for window structures
+     * 
+     * @tparam Derived concret window class
+     */
     template <typename Derived>
     struct window_api 
     {
+
+      /**
+       * @brief Get the `sdl2::surface` associated with the window
+       * @details A new surface will be created with the optimal format for the current window.
+       * This function calls `SDL_GetWindowSurface`
+       * 
+       * @note the returned surface is managed by the window it self
+       * 
+       * @return `sdl2::surface_ref` associated with the window
+       * @throw sdl2::exception on error
+       * 
+       * @sa `window_api::update_surface`
+       */
       inline surface_ref get_surface() const 
       { 
         SDL_Surface* sf( SDL_GetWindowSurface( to_sdl_type(*this) ) );
