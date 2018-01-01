@@ -7,6 +7,7 @@ add_definitions(-DTEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/test_data")
 file (GLOB TEST_SRC_FILES_CORE "${CMAKE_CURRENT_SOURCE_DIR}/core/*.cxx")
 file (GLOB TEST_SRC_FILES_DETAIL "${CMAKE_CURRENT_SOURCE_DIR}/detail/*.cxx")
 file (GLOB TEST_SRC_FILES_EVENTS "${CMAKE_CURRENT_SOURCE_DIR}/events/*.cxx")
+file (GLOB TEST_SRC_FILES_PLATFORM "${CMAKE_CURRENT_SOURCE_DIR}/platform/*.cxx")
 file (GLOB TEST_SRC_FILES_TIME "${CMAKE_CURRENT_SOURCE_DIR}/time/*.cxx")
 file (GLOB TEST_SRC_FILES_VIDEO "${CMAKE_CURRENT_SOURCE_DIR}/video/*.cxx")
 
@@ -26,7 +27,8 @@ endif()
 add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.cxx"
                                         "${TEST_SRC_FILES_CORE}"  
                                         "${TEST_SRC_FILES_DETAIL}" 
-                                        "${TEST_SRC_FILES_EVENTS}" 
+                                        "${TEST_SRC_FILES_EVENTS}"
+                                        "${TEST_SRC_FILES_PLATFORM}"
                                         "${TEST_SRC_FILES_TIME}"
                                         "${TEST_SRC_FILES_VIDEO}"
 

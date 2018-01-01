@@ -56,7 +56,7 @@ do {                                                      \
 
 namespace img 
 {
-  surface load(const std::string& img_path) { return to_cxx_type(IMG_Load(img_path.c_str())); }
+  inline surface load(const std::string& img_path) { return to_cxx_type(IMG_Load(img_path.c_str())); }
 
   struct init_guard
   {
