@@ -3,8 +3,8 @@ Standard: Cpp11
 
 ColumnLimit: 160
 
-TabWidth: 4
-IndentWidth: 4
+TabWidth: 2
+IndentWidth: 2
 UseTab: Never
 
 # spaces settings
@@ -29,16 +29,6 @@ BraceWrapping:
     IndentBraces: false
 
 
-# WISHLIST: set AccessModifierOffset to 4, and "inside class indent" to 8, so
-# you could get:
-# class X
-# {
-#     public:
-#         int foo();
-# };
-# We settle for aligning the access modier with the braces here.
-AccessModifierOffset: -4
-
 # single line settings
 AllowShortFunctionsOnASingleLine: Inline
 #AllowShortFunctionsOnASingleLine: InlineOnly
@@ -48,6 +38,8 @@ AllowShortLoopsOnASingleLine: false
 # Misc indentation settings
 IndentCaseLabels: true
 NamespaceIndentation: All
+
+AlwaysBreakTemplateDeclarations: true
 
 # use one line per param in huge function calls / definitions
 BinPackArguments: false

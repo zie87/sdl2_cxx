@@ -1,9 +1,9 @@
-/** 
+/**
  *  @file    video.hxx
  *  @author  zie87
  *  @date    2017-10-23 19:50:01
  *  @version 2017-10-23 19:50:22
- *  
+ *
  *  @brief Brief description of file.
  *
  *  @section DESCRIPTION

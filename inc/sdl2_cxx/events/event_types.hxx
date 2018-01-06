@@ -1,14 +1,14 @@
 /**
-* @file   event_types.hxx
-* @Author: zie87
-* @Date:   2017-10-18 21:05:09
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 17:10:01
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   event_types.hxx
+ * @Author: zie87
+ * @Date:   2017-10-18 21:05:09
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-20 17:10:01
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_EVENTS_EVENT_TYPES_HXX
 #define SDL2_CXX_EVENTS_EVENT_TYPES_HXX
@@ -110,191 +110,369 @@ namespace sdl2
   constexpr bool is_joy_button_event_type(event_type type) { return (type == event_type::joy_button_down) || (type == event_type::joy_button_up); }
   constexpr bool is_joy_device_event_type(event_type type) { return (type == event_type::joy_device_added) || (type == event_type::joy_device_removed); }
   constexpr bool is_controller_axis_event_type(event_type type) { return (type == event_type::controller_axis_motion); }
-  constexpr bool is_controller_button_event_type(event_type type) { return (type == event_type::controller_button_down) || (type == event_type::controller_button_up); }
-  constexpr bool is_controller_device_event_type(event_type type) { return (type == event_type::controller_device_added) || (type == event_type::controller_device_removed) || (type == event_type::controller_device_remapped); }
-  constexpr bool is_touch_finger_event_type(event_type type) { return (type == event_type::finger_down) || (type == event_type::finger_up) || (type == event_type::finger_motion); }
+  constexpr bool is_controller_button_event_type(event_type type)
+  {
+    return (type == event_type::controller_button_down) || (type == event_type::controller_button_up);
+  }
+  constexpr bool is_controller_device_event_type(event_type type)
+  {
+    return (type == event_type::controller_device_added) || (type == event_type::controller_device_removed) || (type == event_type::controller_device_remapped);
+  }
+  constexpr bool is_touch_finger_event_type(event_type type)
+  {
+    return (type == event_type::finger_down) || (type == event_type::finger_up) || (type == event_type::finger_motion);
+  }
   constexpr bool is_dollar_gesture_event_type(event_type type) { return (type == event_type::dollar_gesture) || (type == event_type::dollar_record); }
   constexpr bool is_multi_gesture_event_type(event_type type) { return (type == event_type::multi_gesture); }
-  constexpr bool is_drop_event_type(event_type type) { return (type == event_type::drop_file) || (type == event_type::drop_text) || (type == event_type::drop_begin) || (type == event_type::drop_complete); }
+  constexpr bool is_drop_event_type(event_type type)
+  {
+    return (type == event_type::drop_file) || (type == event_type::drop_text) || (type == event_type::drop_begin) || (type == event_type::drop_complete);
+  }
   constexpr bool is_audio_device_event_type(event_type type) { return (type == event_type::audio_device_added) || (type == event_type::audio_device_removed); }
   constexpr bool is_user_event_type(event_type type) { return (type >= event_type::user_event) && (type <= event_type::last); }
   constexpr bool is_valid_event_type(event_type type) { return (type >= event_type::first) && (type <= event_type::last); }
 
   template <typename T>
-  struct is_common_event : meta_if<std::is_same<T, SDL_CommonEvent>::value> {};
+  struct is_common_event : meta_if<std::is_same<T, SDL_CommonEvent>::value>
+  {
+  };
 
   template <event_type T>
-  struct is_quit_event : meta_if<is_quit_event_type(T)> {};
+  struct is_quit_event : meta_if<is_quit_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_window_event : meta_if<is_window_event_type(T)> {};
+  struct is_window_event : meta_if<is_window_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_syswm_event : meta_if<is_syswm_event_type(T)> {};
+  struct is_syswm_event : meta_if<is_syswm_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_keyboard_event : meta_if<is_keyboard_event_type(T)> {};
+  struct is_keyboard_event : meta_if<is_keyboard_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_text_editing_event : meta_if<is_text_editing_event_type(T)> {};
+  struct is_text_editing_event : meta_if<is_text_editing_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_text_input_event : meta_if<is_text_input_event_type(T)> {};
+  struct is_text_input_event : meta_if<is_text_input_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_mouse_motion_event : meta_if<is_mouse_motion_event_type(T)> {};
+  struct is_mouse_motion_event : meta_if<is_mouse_motion_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_mouse_button_event : meta_if<is_mouse_button_event_type(T)> {};
+  struct is_mouse_button_event : meta_if<is_mouse_button_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_mouse_wheel_event : meta_if<is_mouse_wheel_event_type(T)> {};
+  struct is_mouse_wheel_event : meta_if<is_mouse_wheel_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_joy_axis_event : meta_if<is_joy_axis_event_type(T)> {};
+  struct is_joy_axis_event : meta_if<is_joy_axis_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_joy_ball_event : meta_if<is_joy_ball_event_type(T)> {};
+  struct is_joy_ball_event : meta_if<is_joy_ball_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_joy_hat_event : meta_if<is_joy_hat_event_type(T)> {};
+  struct is_joy_hat_event : meta_if<is_joy_hat_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_joy_button_event : meta_if<is_joy_button_event_type(T)> {};
+  struct is_joy_button_event : meta_if<is_joy_button_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_joy_device_event : meta_if<is_joy_device_event_type(T)> {};
+  struct is_joy_device_event : meta_if<is_joy_device_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_controller_axis_event : meta_if<is_controller_axis_event_type(T)> {};
+  struct is_controller_axis_event : meta_if<is_controller_axis_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_controller_button_event : meta_if<is_controller_button_event_type(T)> {};
+  struct is_controller_button_event : meta_if<is_controller_button_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_controller_device_event : meta_if<is_controller_device_event_type(T)> {};
+  struct is_controller_device_event : meta_if<is_controller_device_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_touch_finger_event : meta_if<is_touch_finger_event_type(T)> {};
+  struct is_touch_finger_event : meta_if<is_touch_finger_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_dollar_gesture_event : meta_if<is_dollar_gesture_event_type(T)> {};
+  struct is_dollar_gesture_event : meta_if<is_dollar_gesture_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_multi_gesture_event : meta_if<is_multi_gesture_event_type(T)> {};
+  struct is_multi_gesture_event : meta_if<is_multi_gesture_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_drop_event : meta_if<is_drop_event_type(T)> {};
+  struct is_drop_event : meta_if<is_drop_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_audio_device_event : meta_if<is_audio_device_event_type(T)> {};
+  struct is_audio_device_event : meta_if<is_audio_device_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_user_event : meta_if<is_user_event_type(T)> {};
+  struct is_user_event : meta_if<is_user_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  struct is_valid_event : meta_if<is_valid_event_type(T)> {};
+  struct is_valid_event : meta_if<is_valid_event_type(T)>
+  {
+  };
 
   template <event_type T>
-  using event_data =
-    std::conditional_t<is_quit_event<T>::value, SDL_QuitEvent,
-    std::conditional_t<is_window_event<T>::value, SDL_WindowEvent,
-    std::conditional_t<is_syswm_event<T>::value, SDL_SysWMEvent,
-    std::conditional_t<is_keyboard_event<T>::value, SDL_KeyboardEvent,
-    std::conditional_t<is_text_editing_event<T>::value, SDL_TextEditingEvent,
-    std::conditional_t<is_text_input_event<T>::value, SDL_TextInputEvent,
-    std::conditional_t<is_mouse_motion_event<T>::value, SDL_MouseMotionEvent,
-    std::conditional_t<is_mouse_button_event<T>::value, SDL_MouseButtonEvent,
-    std::conditional_t<is_mouse_wheel_event<T>::value, SDL_MouseWheelEvent,
-    std::conditional_t<is_joy_axis_event<T>::value, SDL_JoyAxisEvent,
-    std::conditional_t<is_joy_ball_event<T>::value, SDL_JoyBallEvent,
-    std::conditional_t<is_joy_hat_event<T>::value, SDL_JoyHatEvent,
-    std::conditional_t<is_joy_button_event<T>::value, SDL_JoyButtonEvent,
-    std::conditional_t<is_joy_device_event<T>::value, SDL_JoyDeviceEvent,
-    std::conditional_t<is_controller_axis_event<T>::value, SDL_ControllerAxisEvent,
-    std::conditional_t<is_controller_button_event<T>::value, SDL_ControllerButtonEvent,
-    std::conditional_t<is_controller_device_event<T>::value, SDL_ControllerDeviceEvent,
-    std::conditional_t<is_touch_finger_event<T>::value, SDL_TouchFingerEvent,
-    std::conditional_t<is_dollar_gesture_event<T>::value, SDL_DollarGestureEvent,
-    std::conditional_t<is_multi_gesture_event<T>::value, SDL_MultiGestureEvent,
-    std::conditional_t<is_drop_event<T>::value, SDL_DropEvent,
-    std::conditional_t<is_audio_device_event<T>::value, SDL_AudioDeviceEvent,
-    std::conditional_t<is_user_event<T>::value, SDL_UserEvent,
-    std::conditional_t<is_valid_event<T>::value, SDL_CommonEvent,
-    void
-  >>>>>>>>>> >>>>>>>>>> >>>>;
+  using event_data = std::conditional_t<
+      is_quit_event<T>::value,
+      SDL_QuitEvent,
+      std::conditional_t<
+          is_window_event<T>::value,
+          SDL_WindowEvent,
+          std::conditional_t<
+              is_syswm_event<T>::value,
+              SDL_SysWMEvent,
+              std::conditional_t<
+                  is_keyboard_event<T>::value,
+                  SDL_KeyboardEvent,
+                  std::conditional_t<
+                      is_text_editing_event<T>::value,
+                      SDL_TextEditingEvent,
+                      std::conditional_t<
+                          is_text_input_event<T>::value,
+                          SDL_TextInputEvent,
+                          std::conditional_t<
+                              is_mouse_motion_event<T>::value,
+                              SDL_MouseMotionEvent,
+                              std::conditional_t<
+                                  is_mouse_button_event<T>::value,
+                                  SDL_MouseButtonEvent,
+                                  std::conditional_t<
+                                      is_mouse_wheel_event<T>::value,
+                                      SDL_MouseWheelEvent,
+                                      std::conditional_t<
+                                          is_joy_axis_event<T>::value,
+                                          SDL_JoyAxisEvent,
+                                          std::conditional_t<
+                                              is_joy_ball_event<T>::value,
+                                              SDL_JoyBallEvent,
+                                              std::conditional_t<
+                                                  is_joy_hat_event<T>::value,
+                                                  SDL_JoyHatEvent,
+                                                  std::conditional_t<
+                                                      is_joy_button_event<T>::value,
+                                                      SDL_JoyButtonEvent,
+                                                      std::conditional_t<
+                                                          is_joy_device_event<T>::value,
+                                                          SDL_JoyDeviceEvent,
+                                                          std::conditional_t<
+                                                              is_controller_axis_event<T>::value,
+                                                              SDL_ControllerAxisEvent,
+                                                              std::conditional_t<
+                                                                  is_controller_button_event<T>::value,
+                                                                  SDL_ControllerButtonEvent,
+                                                                  std::conditional_t<
+                                                                      is_controller_device_event<T>::value,
+                                                                      SDL_ControllerDeviceEvent,
+                                                                      std::conditional_t<
+                                                                          is_touch_finger_event<T>::value,
+                                                                          SDL_TouchFingerEvent,
+                                                                          std::conditional_t<
+                                                                              is_dollar_gesture_event<T>::value,
+                                                                              SDL_DollarGestureEvent,
+                                                                              std::conditional_t<
+                                                                                  is_multi_gesture_event<T>::value,
+                                                                                  SDL_MultiGestureEvent,
+                                                                                  std::conditional_t<
+                                                                                      is_drop_event<T>::value,
+                                                                                      SDL_DropEvent,
+                                                                                      std::conditional_t<
+                                                                                          is_audio_device_event<T>::value,
+                                                                                          SDL_AudioDeviceEvent,
+                                                                                          std::conditional_t<is_user_event<T>::value,
+                                                                                                             SDL_UserEvent,
+                                                                                                             std::conditional_t<is_valid_event<T>::value,
+                                                                                                                                SDL_CommonEvent,
+                                                                                                                                void>>>>>>>>>>>>>>>>>>>>>>>>;
 
   template <class T, concept_is_same<T, SDL_QuitEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::quit; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::quit;
+  }
 
   template <class T, concept_is_same<T, SDL_WindowEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::window; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::window;
+  }
 
   template <class T, concept_is_same<T, SDL_SysWMEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::syswm; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::syswm;
+  }
 
   template <class T, concept_is_same<T, SDL_KeyboardEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::key_down; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::key_down;
+  }
 
   template <class T, concept_is_same<T, SDL_TextEditingEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::text_editing; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::text_editing;
+  }
 
   template <class T, concept_is_same<T, SDL_TextInputEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::text_input; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::text_input;
+  }
 
   template <class T, concept_is_same<T, SDL_MouseMotionEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::mouse_motion; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::mouse_motion;
+  }
 
   template <class T, concept_is_same<T, SDL_MouseButtonEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::mouse_button_down; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::mouse_button_down;
+  }
 
   template <class T, concept_is_same<T, SDL_MouseWheelEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::mouse_wheel; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::mouse_wheel;
+  }
 
   template <class T, concept_is_same<T, SDL_JoyAxisEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::joy_axis_motion; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::joy_axis_motion;
+  }
 
   template <class T, concept_is_same<T, SDL_JoyBallEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::joy_ball_motion; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::joy_ball_motion;
+  }
 
   template <class T, concept_is_same<T, SDL_JoyHatEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::joy_hat_motion; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::joy_hat_motion;
+  }
 
   template <class T, concept_is_same<T, SDL_JoyButtonEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::joy_button_down; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::joy_button_down;
+  }
 
   template <class T, concept_is_same<T, SDL_JoyDeviceEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::joy_device_added; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::joy_device_added;
+  }
 
   template <class T, concept_is_same<T, SDL_ControllerAxisEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::controller_axis_motion; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::controller_axis_motion;
+  }
 
   template <class T, concept_is_same<T, SDL_ControllerButtonEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::controller_button_down; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::controller_button_down;
+  }
 
   template <class T, concept_is_same<T, SDL_ControllerDeviceEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::controller_device_added; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::controller_device_added;
+  }
 
   template <class T, concept_is_same<T, SDL_TouchFingerEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::finger_down; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::finger_down;
+  }
 
   template <class T, concept_is_same<T, SDL_DollarGestureEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::dollar_gesture; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::dollar_gesture;
+  }
 
   template <class T, concept_is_same<T, SDL_MultiGestureEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::multi_gesture; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::multi_gesture;
+  }
 
   template <class T, concept_is_same<T, SDL_DropEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::drop_file; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::drop_file;
+  }
 
   template <class T, concept_is_same<T, SDL_AudioDeviceEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::audio_device_added; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::audio_device_added;
+  }
 
   template <class T, concept_is_same<T, SDL_UserEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::user_event; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::user_event;
+  }
 
   template <class T, concept_is_same<T, SDL_CommonEvent> = nullptr>
-  constexpr inline event_type to_event_type() { return event_type::first; }
+  constexpr inline event_type to_event_type()
+  {
+    return event_type::first;
+  }
 
   constexpr inline event_type to_event_type() { return event_type::invalid; }
 } // namespace sdl2

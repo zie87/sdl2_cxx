@@ -1,25 +1,25 @@
 /**
-* @file   window_test.cxx
-* @Author: zie87
-* @Date:   2017-10-17 05:07:32
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-23 18:55:44
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   window_test.cxx
+ * @Author: zie87
+ * @Date:   2017-10-17 05:07:32
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-23 18:55:44
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #include <sdl2_cxx/video/window.hxx>
 
 #include "SDL.h"
 #include <catch.hpp>
 
-TEST_CASE("check window wrapper", "[video]") 
+TEST_CASE("check window wrapper", "[video]")
 {
   SDL_VideoInit(NULL);
 
-  SECTION("basic construction test") 
+  SECTION("basic construction test")
   {
     const std::string title("construction test test");
     const int x = 10;
@@ -32,7 +32,7 @@ TEST_CASE("check window wrapper", "[video]")
       sdl2::window window(title, sdl2::windowpos::undefined, sdl2::windowpos::centered, w, h);
       REQUIRE(window);
 
-      sdl2::window move_win( std::move(window) );
+      sdl2::window move_win(std::move(window));
       REQUIRE(move_win);
 
       window = std::move(move_win);
@@ -49,9 +49,9 @@ TEST_CASE("check window wrapper", "[video]")
 
       sdl2::window window(title, x, y, w, h);
 
-      REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
-      REQUIRE( sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
-      REQUIRE( sdl_flags == window.get_flags() );
+      REQUIRE(title == SDL_GetWindowTitle(sdl2::to_sdl_type(window)));
+      REQUIRE(sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+      REQUIRE(sdl_flags == window.get_flags());
 
       int w_x = -1;
       int w_y = -1;
@@ -77,9 +77,9 @@ TEST_CASE("check window wrapper", "[video]")
 
       sdl2::window window(title, w, h, sdl2::window_flags::hidden);
 
-      REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
-      REQUIRE( sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
-      REQUIRE( sdl_flags == window.get_flags() );
+      REQUIRE(title == SDL_GetWindowTitle(sdl2::to_sdl_type(window)));
+      REQUIRE(sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+      REQUIRE(sdl_flags == window.get_flags());
 
       int w_x = -1;
       int w_y = -1;
@@ -103,16 +103,16 @@ TEST_CASE("check window wrapper", "[video]")
       SDL_GetWindowSize(sdl_win, &sdl_w, &sdl_h);
       int sdl_x = -1;
       int sdl_y = -1;
-      
+
       SDL_GetWindowPosition(sdl_win, &sdl_x, &sdl_y);
-      
+
       SDL_DestroyWindow(sdl_win);
 
       sdl2::window window(title, x, y, w, h, {sdl2::window_flags::shown, sdl2::window_flags::maximized});
 
-      REQUIRE( title == SDL_GetWindowTitle( sdl2::to_sdl_type(window) ) );
-      REQUIRE( sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
-      REQUIRE( sdl_flags == window.get_flags() );
+      REQUIRE(title == SDL_GetWindowTitle(sdl2::to_sdl_type(window)));
+      REQUIRE(sdl_flags == SDL_GetWindowFlags(sdl2::to_sdl_type(window)));
+      REQUIRE(sdl_flags == window.get_flags());
 
       int w_x = -1;
       int w_y = -1;
@@ -141,7 +141,8 @@ TEST_CASE("check window wrapper", "[video]")
 
       screen.fill(0xFF, 0xFF, 0xFF);
       window.update_surface();
-    } catch(...)
+    }
+    catch (...)
     {
       REQUIRE(false);
     }

@@ -1,14 +1,14 @@
 /**
-* @file   mouse.hxx
-* @Author: zie87
-* @Date:   2017-10-20 16:56:08
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 17:00:31
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   mouse.hxx
+ * @Author: zie87
+ * @Date:   2017-10-20 16:56:08
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-20 17:00:31
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_EVENTS_MOUSE_HXX
 #define SDL2_CXX_EVENTS_MOUSE_HXX

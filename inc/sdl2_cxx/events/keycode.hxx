@@ -1,14 +1,14 @@
 /**
-* @file   keycode.hxx
-* @Author: zie87
-* @Date:   2017-10-20 18:13:58
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 18:22:44
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   keycode.hxx
+ * @Author: zie87
+ * @Date:   2017-10-20 18:13:58
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-20 18:22:44
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_EVENTS_KEYCODE_HXX
 #define SDL2_CXX_EVENTS_KEYCODE_HXX
@@ -272,7 +272,7 @@ namespace sdl2
     sleep = SDLK_SLEEP
   };
 
-  enum class keymod : std::underlying_type_t<SDL_Keymod> 
+  enum class keymod : std::underlying_type_t<SDL_Keymod>
   {
     none = KMOD_NONE,
     lshift = KMOD_LSHIFT,

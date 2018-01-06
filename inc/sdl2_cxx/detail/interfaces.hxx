@@ -1,14 +1,14 @@
 /**
-* @file   interfaces.hxx
-* @Author: zie87
-* @Date:   2017-10-16 23:20:30
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-16 23:31:49
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   interfaces.hxx
+ * @Author: zie87
+ * @Date:   2017-10-16 23:20:30
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-16 23:31:49
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_DETAIL_INTERFACES_HXX
 #define SDL2_CXX_DETAIL_INTERFACES_HXX
@@ -19,12 +19,12 @@ namespace sdl2
   {
     class noncopyable
     {
-      protected:
-        noncopyable() {}
-        virtual ~noncopyable() {}
+    protected:
+      noncopyable() {}
+      virtual ~noncopyable() {}
 
-        noncopyable( const noncopyable& ) = delete;
-        noncopyable& operator=( const noncopyable& ) = delete;
+      noncopyable(const noncopyable&) = delete;
+      noncopyable& operator=(const noncopyable&) = delete;
     };
   }
 

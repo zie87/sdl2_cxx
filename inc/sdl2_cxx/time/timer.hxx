@@ -1,14 +1,14 @@
 /**
-* @file   timer.hxx
-* @Author: zie87
-* @Date:   2017-10-14 23:58:53
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 12:39:21
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   timer.hxx
+ * @Author: zie87
+ * @Date:   2017-10-14 23:58:53
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-20 12:39:21
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_TIME_TIMER_HXX
 #define SDL2_CXX_TIME_TIMER_HXX
@@ -19,8 +19,8 @@
 namespace sdl2
 {
 
-struct clock
-{
+  struct clock
+  {
     using rep = uint32_t;
     using period = std::milli;
     using duration = std::chrono::duration<rep, period>;
@@ -29,19 +29,19 @@ struct clock
     constexpr static bool is_steady = true;
 
     static time_point now() noexcept { return time_point{duration{SDL_GetTicks()}}; }
-};
+  };
 
-using time_point = clock::time_point;
-using duration = clock::duration;
+  using time_point = clock::time_point;
+  using duration = clock::duration;
 
-inline uint32_t ticks() noexcept { return SDL_GetTicks(); }
-inline uint64_t performance_counter() { return SDL_GetPerformanceCounter(); }
-inline uint64_t performance_frequency() { return SDL_GetPerformanceFrequency(); }
+  inline uint32_t ticks() noexcept { return SDL_GetTicks(); }
+  inline uint64_t performance_counter() { return SDL_GetPerformanceCounter(); }
+  inline uint64_t performance_frequency() { return SDL_GetPerformanceFrequency(); }
 
-inline void delay( uint32_t interval ) { SDL_Delay(interval); }
-inline void delay( duration interval ) { SDL_Delay(interval.count()); }
+  inline void delay(uint32_t interval) { SDL_Delay(interval); }
+  inline void delay(duration interval) { SDL_Delay(interval.count()); }
 
-// todo: add wrapper for (callback) timer
+  // todo: add wrapper for (callback) timer
 
 } // namespace sdl2
 

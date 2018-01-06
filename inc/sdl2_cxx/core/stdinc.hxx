@@ -1,14 +1,14 @@
 /**
-* @file   stdinc.hxx
-* @Author: zie87
-* @Date:   2017-10-18 18:50:32
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-18 18:59:08
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   stdinc.hxx
+ * @Author: zie87
+ * @Date:   2017-10-18 18:50:32
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-18 18:59:08
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_CORE_STDINC_HXX
 #define SDL2_CXX_CORE_STDINC_HXX

@@ -1,14 +1,14 @@
 /**
-* @file   scancode.hxx
-* @Author: zie87
-* @Date:   2017-10-20 18:03:49
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-20 18:05:32
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   scancode.hxx
+ * @Author: zie87
+ * @Date:   2017-10-20 18:03:49
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-20 18:05:32
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #ifndef SDL2_CXX_EVENTS_SCANCODE_HXX
 #define SDL2_CXX_EVENTS_SCANCODE_HXX
@@ -18,7 +18,7 @@
 
 namespace sdl2
 {
-  enum class scancode : std::underlying_type_t<SDL_Scancode> 
+  enum class scancode : std::underlying_type_t<SDL_Scancode>
   {
     unknown = SDL_SCANCODE_UNKNOWN,
 
@@ -148,7 +148,7 @@ namespace sdl2
     menu = SDL_SCANCODE_MENU,
     select = SDL_SCANCODE_SELECT,
     stop = SDL_SCANCODE_STOP,
-    again = SDL_SCANCODE_AGAIN,   /**< redo */
+    again = SDL_SCANCODE_AGAIN, /**< redo */
     undo = SDL_SCANCODE_UNDO,
     cut = SDL_SCANCODE_CUT,
     copy = SDL_SCANCODE_COPY,
@@ -242,12 +242,12 @@ namespace sdl2
 
     lctrl = SDL_SCANCODE_LCTRL,
     lshift = SDL_SCANCODE_LSHIFT,
-    lalt = SDL_SCANCODE_LALT, 
-    lgui = SDL_SCANCODE_LGUI, 
+    lalt = SDL_SCANCODE_LALT,
+    lgui = SDL_SCANCODE_LGUI,
     rctrl = SDL_SCANCODE_RCTRL,
     rshift = SDL_SCANCODE_RSHIFT,
-    ralt = SDL_SCANCODE_RALT, 
-    rgui = SDL_SCANCODE_RGUI, 
+    ralt = SDL_SCANCODE_RALT,
+    rgui = SDL_SCANCODE_RGUI,
 
     mode = SDL_SCANCODE_MODE,
 

@@ -1,25 +1,25 @@
 /**
-* @file   render_test.cxx
-* @Author: zie87
-* @Date:   2017-10-17 05:07:32
-* @Last Modified by:   zie87
-* @Last Modified time: 2017-10-22 16:54:45
-*
-* @brief  Brief description of file.
-*
-* Detailed description of file.
-**/
+ * @file   render_test.cxx
+ * @Author: zie87
+ * @Date:   2017-10-17 05:07:32
+ * @Last Modified by:   zie87
+ * @Last Modified time: 2017-10-22 16:54:45
+ *
+ * @brief  Brief description of file.
+ *
+ * Detailed description of file.
+ **/
 
 #include <sdl2_cxx/video/render.hxx>
 
 #include "SDL.h"
 #include <catch.hpp>
 
-TEST_CASE("check renderer wrapper", "[video]") 
+TEST_CASE("check renderer wrapper", "[video]")
 {
   SDL_VideoInit(NULL);
 
-  SECTION("Basic construction test") 
+  SECTION("Basic construction test")
   {
     sdl2::window window("renderer test window", 120, 80);
     {
@@ -35,7 +35,8 @@ TEST_CASE("check renderer wrapper", "[video]")
           renderer.clear();
           renderer.present();
         }
-      } catch(...)
+      }
+      catch (...)
       {
         REQUIRE(false);
       }
@@ -52,30 +53,30 @@ TEST_CASE("check renderer wrapper", "[video]")
     sdl2::uint8_t b = 3;
     sdl2::uint8_t a = 4;
 
-    renderer.set_draw_color(r,g,b,a);
+    renderer.set_draw_color(r, g, b, a);
 
     sdl2::uint8_t r_tmp = 0;
     sdl2::uint8_t g_tmp = 0;
     sdl2::uint8_t b_tmp = 0;
     sdl2::uint8_t a_tmp = 0;
-  
-    SDL_GetRenderDrawColor( sdl2::to_sdl_type(renderer), &r_tmp, &g_tmp, &b_tmp, &a_tmp );
 
-    REQUIRE( r == r_tmp );
-    REQUIRE( g == g_tmp );
-    REQUIRE( b == b_tmp );
-    REQUIRE( a == a_tmp );
+    SDL_GetRenderDrawColor(sdl2::to_sdl_type(renderer), &r_tmp, &g_tmp, &b_tmp, &a_tmp);
+
+    REQUIRE(r == r_tmp);
+    REQUIRE(g == g_tmp);
+    REQUIRE(b == b_tmp);
+    REQUIRE(a == a_tmp);
 
     r = 0;
     g = 0;
     b = 0;
     a = 0;
 
-    renderer.get_draw_color(r,g,b,a);
-    REQUIRE( r == r_tmp );
-    REQUIRE( g == g_tmp );
-    REQUIRE( b == b_tmp );
-    REQUIRE( a == a_tmp );
+    renderer.get_draw_color(r, g, b, a);
+    REQUIRE(r == r_tmp);
+    REQUIRE(g == g_tmp);
+    REQUIRE(b == b_tmp);
+    REQUIRE(a == a_tmp);
   }
 
   SECTION("viewport functions")
@@ -86,14 +87,14 @@ TEST_CASE("check renderer wrapper", "[video]")
     sdl2::window window("renderer test window", 120, 80);
     sdl2::renderer renderer(window);
 
-    sdl2::rect vp(10, 10, w/2, h/2);
+    sdl2::rect vp(10, 10, w / 2, h / 2);
     renderer.set_viewport(vp);
     auto vp_ret = renderer.get_viewport();
 
-    REQUIRE( vp.x() == vp_ret.x() );
-    REQUIRE( vp.y() == vp_ret.y() );
-    REQUIRE( vp.width() == vp_ret.width() );
-    REQUIRE( vp.height() == vp_ret.height() );
+    REQUIRE(vp.x() == vp_ret.x());
+    REQUIRE(vp.y() == vp_ret.y());
+    REQUIRE(vp.width() == vp_ret.width());
+    REQUIRE(vp.height() == vp_ret.height());
   }
 
   SDL_VideoQuit();
