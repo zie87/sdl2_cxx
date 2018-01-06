@@ -101,6 +101,11 @@ TEST_CASE("check window wrapper", "[video]")
       int sdl_w = -1;
       int sdl_h = -1;
       SDL_GetWindowSize(sdl_win, &sdl_w, &sdl_h);
+      int sdl_x = -1;
+      int sdl_y = -1;
+      
+      SDL_GetWindowPosition(sdl_win, &sdl_x, &sdl_y);
+      
       SDL_DestroyWindow(sdl_win);
 
       sdl2::window window(title, x, y, w, h, {sdl2::window_flags::shown, sdl2::window_flags::maximized});
@@ -113,8 +118,8 @@ TEST_CASE("check window wrapper", "[video]")
       int w_y = -1;
 
       SDL_GetWindowPosition(sdl2::to_sdl_type(window), &w_x, &w_y);
-      REQUIRE(x == w_x);
-      REQUIRE(y == w_y);
+      REQUIRE(sdl_x == w_x);
+      REQUIRE(sdl_y == w_y);
 
       int w_w = -1;
       int w_h = -1;
