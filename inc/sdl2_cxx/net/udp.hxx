@@ -39,7 +39,6 @@ namespace sdl2
         {
           auto result = SDLNet_ResizePacket(m_packet.get(), new_size);
           SDL2_CXX_NET_CHECK(result == new_size);
-          m_packet->maxlen = result;
         }
 
         inline void address(const ip_address& ip)
