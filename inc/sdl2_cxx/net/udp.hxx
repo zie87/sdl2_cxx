@@ -51,7 +51,7 @@ namespace sdl2
 
         inline void set_data(const std::string& msg, bool auto_resize = false) { set_data((const std::uint8_t*)msg.c_str(), msg.length(), auto_resize); }
 
-        inline void set_data(const std::uint8_t* data, std::size_t len, bool auto_resize = false)
+        inline void set_data(const std::uint8_t* data, int len, bool auto_resize = false)
         {
           if (auto_resize && (len > capacity()))
           {
