@@ -28,7 +28,7 @@ matrix:
       compiler: clang
       addons: &clang5
         apt:
-          sources: ['llvm-toolchain-precise-3.8', 'ubuntu-toolchain-r-test']
+          sources: ['llvm-toolchain-trusty-5.0', 'ubuntu-toolchain-r-test']
           packages: ['clang-5.0']
       env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE='Release' SUPPORT=libstdc++-4.9-dev
 
