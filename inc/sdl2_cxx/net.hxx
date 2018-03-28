@@ -2,7 +2,7 @@
 #define SDL2_CXX_NET_HXX
 
 /**
- * \defgroup NET Network related structurs and functions
+ * \defgroup NET Network related structures and functions
  * @{
  */
 

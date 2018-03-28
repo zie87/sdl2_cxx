@@ -2,7 +2,7 @@
 #define SDL2_CXX_EVENTS_HXX
 
 /**
- * \defgroup EVENTS Event related structurs and functions
+ * \defgroup EVENTS Event related structures and functions
  * @{
  */
 

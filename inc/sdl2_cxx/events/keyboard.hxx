@@ -29,7 +29,7 @@ namespace sdl2
     {
       int size = 0;
       auto current_states = SDL_GetKeyboardState(&size);
-      std::size_t pos(static_cast<size_t>(code));
+      auto pos(static_cast<int>(code));
 
       bool pressed = false;
       if (pos < size) pressed = (current_states[pos] == static_cast<uint8_t>(button_state::pressed));
@@ -46,6 +46,6 @@ namespace sdl2
     static inline scancode to_scancode(const std::string& name) noexcept { return static_cast<scancode>(SDL_GetScancodeFromName(name.c_str())); }
     static inline std::string scancode_name(scancode code) noexcept { return SDL_GetScancodeName(static_cast<SDL_Scancode>(code)); }
   };
-}
+} // namespace sdl2
 
 #endif

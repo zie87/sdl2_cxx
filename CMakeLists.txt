@@ -41,6 +41,8 @@ find_package(SDL2_net)
 include (FindSDL2_ttf)
 find_package(SDL2_ttf)
 
+find_package (OpenGL)
+
 add_subdirectory (3rd EXCLUDE_FROM_ALL)
 
 add_subdirectory(src)
