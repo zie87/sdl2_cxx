@@ -31,9 +31,8 @@ BraceWrapping:
 
 # single line settings
 AllowShortFunctionsOnASingleLine: Inline
-#AllowShortFunctionsOnASingleLine: InlineOnly
 AllowShortIfStatementsOnASingleLine: true
-AllowShortLoopsOnASingleLine: false
+AllowShortLoopsOnASingleLine: true
 
 # Misc indentation settings
 IndentCaseLabels: true

@@ -23,8 +23,13 @@ if(SDL2_TTF_FOUND)
   set (PROJECT_TEST_LIBS ${PROJECT_TEST_LIBS} ${SDL2_TTF_LIBRARY})
 endif()
 
+if(SDL2_NET_FOUND)
+  file (GLOB TEST_SRC_FILES_NET "${CMAKE_CURRENT_SOURCE_DIR}/net/*.cxx")
+  set (PROJECT_TEST_LIBS ${PROJECT_TEST_LIBS} ${SDL2_NET_LIBRARY})
+endif()
 
 add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.cxx"
+                                        
                                         "${TEST_SRC_FILES_CORE}"  
                                         "${TEST_SRC_FILES_DETAIL}" 
                                         "${TEST_SRC_FILES_EVENTS}"
@@ -32,11 +37,12 @@ add_executable (${PROJECT_TEST_NAME}    "${CMAKE_CURRENT_SOURCE_DIR}/catch_main.
                                         "${TEST_SRC_FILES_TIME}"
                                         "${TEST_SRC_FILES_VIDEO}"
 
-                                        # only if SDL2_image is availible
+                                        # only if SDL2_image is available
                                         "${TEST_SRC_FILES_IMAGE}"
-
-                                        # only if SDL2_ttf is availible
+                                        # only if SDL2_ttf is available
                                         "${TEST_SRC_FILES_FONTS}"
+                                        # only if SDL2_ttf is available
+                                        "${TEST_SRC_FILES_NET}"
     )
 target_link_libraries (${PROJECT_TEST_NAME} ${PROJECT_TEST_LIBS} )
 enable_testing()
