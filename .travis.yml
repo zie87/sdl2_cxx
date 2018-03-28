@@ -12,47 +12,45 @@ matrix:
     # Linux C++14 GCC builds
     - os: linux
       compiler: gcc
-      addons: &gcc6
+      addons: &gcc7
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6']
-      env: REAL_CC=gcc-6 REAL_CXX='g++-6' BUILD_TYPE='Release'
+          packages: ['g++-7']
+      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE='Release'
 
     - os: linux
       compiler: gcc
-      addons: *gcc6
-      env: REAL_CC=gcc-6 REAL_CXX='g++-6' BUILD_TYPE='Debug'
-
-    - os: linux
-      compiler: gcc
-      addons: *gcc6
-      env: REAL_CC=gcc-6 REAL_CXX='g++-6' BUILD_TYPE='Coverage'
+      addons: *gcc7
+      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE='Debug'
 
     # Linux C++14 Clang builds
     - os: linux
       compiler: clang
-      addons: &clang38
+      addons: &clang5
         apt:
           sources: ['llvm-toolchain-precise-3.8', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.8']
-      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Release' SUPPORT=libstdc++-4.9-dev
+          packages: ['clang-5.0']
+      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE='Release' SUPPORT=libstdc++-4.9-dev
 
     - os: linux
       compiler: clang
-      addons: *clang38
-      env: REAL_CC=clang-3.8 REAL_CXX='clang++-3.8' BUILD_TYPE='Debug' SUPPORT=libstdc++-4.9-dev
+      addons: *clang5
+      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE='Debug' SUPPORT=libstdc++-4.9-dev
 
     # OSX C++14 Clang Builds
 
     - os: osx
       osx_image: xcode8.3
       compiler: clang
-      env: REAL_CC=clang REAL_CXX='clang++' BUILD_TYPE='Debug'
+      env: MATRIX_EVAL="CC=clang && CXX=clang++" BUILD_TYPE='Debug'
 
     - os: osx
       osx_image: xcode8.3
       compiler: clang
-      env: REAL_CC=clang REAL_CXX='clang++' BUILD_TYPE='Release'
+      env: MATRIX_EVAL="CC=clang && CXX=clang++" BUILD_TYPE='Release'
+
+before_install:
+  - eval "${MATRIX_EVAL}"
 
 install:
   - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then . .travis.linux; fi

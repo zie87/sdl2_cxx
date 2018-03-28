@@ -9,16 +9,16 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
 sudo apt-get update -qq
 sudo apt-get install -qq $SUPPORT lcov gcovr doxygen
 
-#setup compiler
-export CC=${REAL_CC} CXX=${REAL_CXX}
-
 wget https://www.libsdl.org/release/SDL2-2.0.6.tar.gz -O /tmp/sdl2.tar.gz
 tar -xzvf /tmp/sdl2.tar.gz -C /tmp
 cd /tmp/SDL2-2.0.6 && ./configure --prefix=/usr/local && make && sudo make install
 
-
 wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz -O /tmp/SDL2_image.tar.gz
 tar -xzvf /tmp/SDL2_image.tar.gz -C /tmp
 cd /tmp/SDL2_image-2.0.1 && ./configure --prefix=/usr/local && make && sudo make install
+
+wget https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz -O /tmp/SDL2_net.tar.gz
+tar -xzvf /tmp/SDL2_net.tar.gz -C /tmp
+cd /tmp/SDL2_net-2.0.1 && ./configure --prefix=/usr/local && make && sudo make instal
 
 cd -
