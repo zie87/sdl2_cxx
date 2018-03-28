@@ -3,7 +3,6 @@
 
 #include <catch.hpp>
 
-#include <iostream>
 #include <memory>
 #include <thread>
 

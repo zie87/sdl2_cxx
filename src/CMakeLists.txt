@@ -7,5 +7,5 @@ if (CMAKE_COMPILER_IS_GNUCXX AND CMAKE_BUILD_TYPE STREQUAL "Debug" AND USE_GCOV)
     setup_target_for_coverage(test_coverage ${PROJECT_TEST_NAME} coverage)
 endif()
 
-add_subdirectory(example)
+add_subdirectory(examples)
 add_subdirectory(test)
