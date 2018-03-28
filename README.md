@@ -4,7 +4,7 @@ Header only modern c++ wrapper for sdl2 and extensions
 | Build status          | Systems / Compilers         |
 | ------------- | ------------------------------------------ |
 | [![CLang / GCC / XCode Builds](https://travis-ci.org/zie87/sdl2_cxx.svg?branch=master)](https://travis-ci.org/zie87/sdl2_cxx) | Linux (clang5  / gcc7) OSX (XCode 8.3 clang) |
-| [![Visual Studio Builds](https://ci.appveyor.com/api/projects/status/90ryctsanv84928b/branch/master?svg=true)](https://ci.appveyor.com/project/zie87/sdl2-cxx/branch/master) | Windows (Visual Studio 2017 / 2015)  |
+| [![Visual Studio Builds](https://ci.appveyor.com/api/projects/status/90ryctsanv84928b/branch/master?svg=true)](https://ci.appveyor.com/project/zie87/sdl2-cxx/branch/master) | Windows (Visual Studio 2017)  |
 
 ## libraries used
 - [SDL2](https://www.libsdl.org/) as base for this project.

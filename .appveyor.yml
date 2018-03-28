@@ -3,7 +3,6 @@ version: "{branch}.{build}"
 
 os:
   - Visual Studio 2017
-  - Visual Studio 2015
 
 environment:
   PREFIX: c:\usr_msvc
