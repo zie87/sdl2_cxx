@@ -43,8 +43,7 @@ int main(int argc, char** argv)
     auto client = std::move(client_optional.value());
 
     /* get the clients IP and port number */
-    auto remoteip = client.get_peer_address();
-    std::cout << "Accepted a connection from " << remoteip << std::endl;
+    std::cout << "Accepted a connection from " << client.get_peer_address() << std::endl;
 
     /* read the buffer from client */
     constexpr unsigned int buffer_size = 1024;

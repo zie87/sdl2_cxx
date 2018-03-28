@@ -34,14 +34,17 @@ namespace sdl2
 
   namespace net
   {
+    inline void init() { SDL2_CXX_NET_CHECK(::SDLNet_Init() != -1); }
+    inline void quit() noexcept { ::SDLNet_Quit(); }
+
     struct init_guard
     {
-      explicit init_guard() { SDL2_CXX_NET_CHECK(::SDLNet_Init() != -1); }
+      explicit init_guard() { init(); }
 
       init_guard(init_guard&&) noexcept = default;
       init_guard& operator=(init_guard&&) noexcept = default;
 
-      ~init_guard() { ::SDLNet_Quit(); }
+      ~init_guard() { quit(); }
     };
 
     class ip_address
@@ -95,7 +98,10 @@ namespace sdl2
       return ip_address(address);
     }
 
-    std::ostream& operator<<(std::ostream& stream, const ip_address& address)
+    inline bool operator==(const ip_address& lhs, const ip_address& rhs) { return (lhs.host() == rhs.host()) && (lhs.port() == rhs.port()); }
+    inline bool operator!=(const ip_address& lhs, const ip_address& rhs) { return !(lhs == rhs); }
+
+    inline std::ostream& operator<<(std::ostream& stream, const ip_address& address)
     {
       auto ipaddr = SDL_SwapBE32(address.host());
       auto port = SDL_SwapBE16(address.port());
