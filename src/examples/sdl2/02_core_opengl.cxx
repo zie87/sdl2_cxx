@@ -1,36 +1,13 @@
-/*
-  CCTools SDL plugin GLES example
-
-  Derived from SDL testgles sources:
-
-  Copyright (C) 1997-2013 Sam Lantinga <slouken@libsdl.org>
-
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely.
-*/
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengles.h>
-
 #include <sdl2_cxx/core.hxx>
 #include <sdl2_cxx/events.hxx>
 #include <sdl2_cxx/time.hxx>
 #include <sdl2_cxx/video.hxx>
 
+#include <SDL2/SDL_opengles.h>
+
 static void AspectAdjust(int w, int h)
 {
-  float aspectAdjust;
-
-  aspectAdjust = (4.0f / 3.0f) / ((float)w / h);
+  float aspectAdjust = (4.0f / 3.0f) / ((float)w / h);
   glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -54,13 +31,7 @@ static void Render()
                                {0.5f, 0.5f, 0.5f},
                                {0.5f, -0.5f, 0.5f},
                                {-0.5f, -0.5f, 0.5f}};
-  static GLubyte indices[36] = {0, 3, 4, 4, 5, 0, 0, 5, 6, 6, 1, 0,
-
-                                6, 7, 2, 2, 1, 6, 7, 4, 3,
-
-                                3, 2, 7, 5, 4, 7, 7, 6, 5,
-
-                                2, 3, 1, 3, 0, 1};
+  static GLubyte indices[36] = {0, 3, 4, 4, 5, 0, 0, 5, 6, 6, 1, 0, 6, 7, 2, 2, 1, 6, 7, 4, 3, 3, 2, 7, 5, 4, 7, 7, 6, 5, 2, 3, 1, 3, 0, 1};
 
   /* Do our drawing, too. */
   glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -79,21 +50,23 @@ static void Render()
 
 int main(int argc, char* argv[])
 {
-  static SDL_GLContext context;
-
   sdl2::init_guard sdl2_guard{sdl2::init_flags::everything};
 
-  SDL_DisplayMode mode;
-  SDL_GetDesktopDisplayMode(0, &mode);
+  constexpr int screen_width = 640;
+  constexpr int screen_height = 480;
 
   SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 16);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 
-  sdl2::window window{
-      "GLES example", sdl2::windowpos::centered, sdl2::windowpos::centered, mode.w, mode.h, sdl2::window_flags::opengl | sdl2::window_flags::shown};
+  sdl2::window window{"GLES example",
+                      sdl2::windowpos::centered,
+                      sdl2::windowpos::centered,
+                      screen_width,
+                      screen_height,
+                      sdl2::window_flags::opengl | sdl2::window_flags::shown};
 
   // Create our opengl context and attach it to our window
-  context = SDL_GL_CreateContext(sdl2::to_sdl_type(window));
+  SDL_GLContext context = SDL_GL_CreateContext(sdl2::to_sdl_type(window));
   if (!context)
   {
     sdl2::log::out() << sdl2::log::priority::error << "Unable to create GL context";
@@ -104,13 +77,13 @@ int main(int argc, char* argv[])
 
   SDL_GL_SetSwapInterval(1);
 
-  sdl2::log::out() << sdl2::log::priority::information << "Screen bpp : " << SDL_BITSPERPIXEL(mode.format);
+  // sdl2::log::out() << sdl2::log::priority::information << "Screen bpp : " << SDL_BITSPERPIXEL(mode.format);
   sdl2::log::out() << sdl2::log::priority::information << "Vendor     : " << glGetString(GL_VENDOR);
   sdl2::log::out() << sdl2::log::priority::information << "Renderer   : " << glGetString(GL_RENDERER);
   sdl2::log::out() << sdl2::log::priority::information << "Version    : " << glGetString(GL_VERSION);
   sdl2::log::out() << sdl2::log::priority::information << "Extensions : " << glGetString(GL_EXTENSIONS);
 
-  AspectAdjust(mode.w, mode.h);
+  AspectAdjust(screen_width, screen_height);
 
   /* Main render loop */
   sdl2::uint32_t frames = 0;
@@ -134,7 +107,6 @@ int main(int argc, char* argv[])
     SDL_GL_SwapWindow(sdl2::to_sdl_type(window));
   }
 
-  /* Print out some timing information */
   auto now = sdl2::ticks();
   if (now > then)
   {
