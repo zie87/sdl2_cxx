@@ -58,7 +58,7 @@ namespace sdl2
         {
           if (auto_resize && (len > capacity()))
           {
-            auto new_size = std::pow(2, std::ceil(std::log(len) / std::log(2)));
+            int new_size = std::pow(2, std::ceil(std::log(len) / std::log(2)));
             resize(new_size);
           }
 
