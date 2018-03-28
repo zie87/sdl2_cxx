@@ -9,7 +9,7 @@
 #include <sdl2_cxx/net/core.hxx>
 #include <sdl2_cxx/time/timer.hxx>
 
-#include <optional>
+#include <iostream>
 
 namespace sdl2
 {
@@ -39,6 +39,7 @@ namespace sdl2
         {
           auto result = SDLNet_ResizePacket(m_packet.get(), new_size);
           SDL2_CXX_NET_CHECK(result == new_size);
+          m_packet->maxlen = result;
         }
 
         inline void address(const ip_address& ip)
@@ -49,7 +50,10 @@ namespace sdl2
 
         inline ip_address address() const noexcept { return ip_address(m_packet->address); }
 
-        inline void set_data(const std::string& msg, bool auto_resize = false) { set_data((const std::uint8_t*)msg.c_str(), msg.length(), auto_resize); }
+        inline void set_data(const std::string& msg, bool auto_resize = false)
+        {
+          set_data((const std::uint8_t*)msg.c_str(), static_cast<int>(msg.length()), auto_resize);
+        }
 
         inline void set_data(const std::uint8_t* data, int len, bool auto_resize = false)
         {

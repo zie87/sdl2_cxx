@@ -3,9 +3,23 @@
 
 #include <catch.hpp>
 
+#include <iostream>
+
 TEST_CASE("test udp wrapper for sdl2_net", "[net]")
 {
   sdl2::init_guard sdl2_guard{};
+
+  SECTION("test package resizing")
+  {
+    sdl2::net::udp::packet packet(16);
+    REQUIRE(packet.capacity() == 16);
+
+    const std::string test_data("this is a string which should init resizing");
+
+    packet.set_data(test_data, true);
+    REQUIRE(packet.length() == test_data.length());
+    REQUIRE(packet.capacity() == 64);
+  }
 
   SECTION("test package sending")
   {

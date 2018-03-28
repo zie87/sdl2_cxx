@@ -4,19 +4,21 @@
 #include <catch.hpp>
 
 #include <memory>
+#include <mutex>
 #include <thread>
 
 class test_tcp_server
 {
 public:
-  test_tcp_server(std::uint16_t port) : m_address(sdl2::net::resolve_host(port)), m_messages() {}
+  test_tcp_server(std::uint16_t port) : m_address(sdl2::net::resolve_host(port)), m_messages(), m_mutex() {}
 
   void run()
   {
+    std::unique_lock<std::mutex> locker(m_mutex);
     using namespace std::chrono_literals;
     sdl2::net::tcp::socket server(m_address);
 
-    auto client_optional = server.wait_for_accept(100, 10ms);
+    auto client_optional = server.wait_for_accept(100, 5ms);
     if (!client_optional)
     {
       return;
@@ -37,11 +39,16 @@ public:
     }
   }
 
-  std::vector<std::string> messages() const noexcept { return m_messages; }
+  std::vector<std::string> messages() const noexcept
+  {
+    std::unique_lock<std::mutex> locker(m_mutex);
+    return m_messages;
+  }
 
 private:
   sdl2::net::ip_address m_address;
   std::vector<std::string> m_messages;
+  mutable std::mutex m_mutex;
 };
 
 TEST_CASE("test tcp wrapper for sdl2_net", "[net]")
@@ -75,9 +82,14 @@ TEST_CASE("test tcp wrapper for sdl2_net", "[net]")
     auto client_ip = sdl2::net::resolve_host(hostname, port);
     sdl2::net::tcp::socket client(client_ip);
 
+    sdl2::delay(10ms);
     client.send(test_message);
+    sdl2::delay(10ms);
 
-    server_thread->join();
+    if (server_thread->joinable())
+    {
+      server_thread->join();
+    }
 
     auto messages = server.messages();
     REQUIRE(messages.size() == 1);

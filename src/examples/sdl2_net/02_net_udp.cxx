@@ -118,4 +118,6 @@ int main(int argc, char** argv)
     else
       std::cout << "Illegal command\n";
   }
+
+  return 0;
 }
