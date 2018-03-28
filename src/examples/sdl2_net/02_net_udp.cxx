@@ -1,5 +1,3 @@
-#include <SDL2/SDL_net.h>
-
 #include <sdl2_cxx/core/init.hxx>
 #include <sdl2_cxx/net/core.hxx>
 #include <sdl2_cxx/net/udp.hxx>
