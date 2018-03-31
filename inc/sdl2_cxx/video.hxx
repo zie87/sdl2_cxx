@@ -8,6 +8,7 @@
 
 #include <sdl2_cxx/video/blendmode.hxx>
 #include <sdl2_cxx/video/color.hxx>
+#include <sdl2_cxx/video/opengl.hxx>
 #include <sdl2_cxx/video/pixels.hxx>
 #include <sdl2_cxx/video/rect.hxx>
 #include <sdl2_cxx/video/render.hxx>

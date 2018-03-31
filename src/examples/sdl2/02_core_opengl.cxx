@@ -55,8 +55,8 @@ int main(int argc, char* argv[])
   constexpr int screen_width = 640;
   constexpr int screen_height = 480;
 
-  SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 16);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+  sdl2::gl::set_attribute(sdl2::gl::attribute::buffer_size, 16);
+  sdl2::gl::set_attribute(sdl2::gl::attribute::context_major_version, 1);
 
   sdl2::window window{"GLES example",
                       sdl2::windowpos::centered,
@@ -66,18 +66,11 @@ int main(int argc, char* argv[])
                       sdl2::window_flags::opengl | sdl2::window_flags::shown};
 
   // Create our opengl context and attach it to our window
-  SDL_GLContext context = SDL_GL_CreateContext(sdl2::to_sdl_type(window));
-  if (!context)
-  {
-    sdl2::log::out() << sdl2::log::priority::error << "Unable to create GL context";
-    return 1;
-  }
+  auto context = sdl2::gl::context(window);
+  sdl2::gl::make_current(window, context);
 
-  SDL_GL_MakeCurrent(sdl2::to_sdl_type(window), context);
+  sdl2::gl::set_swap_interval(sdl2::gl::swap_interval::synchronized);
 
-  SDL_GL_SetSwapInterval(1);
-
-  // sdl2::log::out() << sdl2::log::priority::information << "Screen bpp : " << SDL_BITSPERPIXEL(mode.format);
   sdl2::log::out() << sdl2::log::priority::information << "Vendor     : " << glGetString(GL_VENDOR);
   sdl2::log::out() << sdl2::log::priority::information << "Renderer   : " << glGetString(GL_RENDERER);
   sdl2::log::out() << sdl2::log::priority::information << "Version    : " << glGetString(GL_VERSION);
@@ -104,7 +97,7 @@ int main(int argc, char* argv[])
     });
 
     Render();
-    SDL_GL_SwapWindow(sdl2::to_sdl_type(window));
+    sdl2::gl::swap_window(window);
   }
 
   auto now = sdl2::ticks();
@@ -112,8 +105,6 @@ int main(int argc, char* argv[])
   {
     sdl2::log::out() << sdl2::log::priority::information << ((double)frames * 1000) / (now - then) << " frames per second\n";
   }
-
-  SDL_GL_DeleteContext(context);
 
   return 0;
 }

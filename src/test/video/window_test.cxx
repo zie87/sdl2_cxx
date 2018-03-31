@@ -17,7 +17,7 @@
 
 TEST_CASE("check window wrapper", "[video]")
 {
-  SDL_VideoInit(NULL);
+  SDL_VideoInit(nullptr);
 
   SECTION("basic construction test")
   {
