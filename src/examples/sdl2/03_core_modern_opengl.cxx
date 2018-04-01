@@ -1,5 +1,3 @@
-// compile with this command on my Ubuntu 12.04 machine:
-// gcc sdl2-opengl-sample.c -o sdl2-opengl-sample -Wall -std=c99 -I/usr/local/include/SDL2 -lSDL2 -I/usr/include/GL -lGL -lGLEW -Wall
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 

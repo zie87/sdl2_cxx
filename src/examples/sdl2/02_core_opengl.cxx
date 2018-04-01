@@ -3,15 +3,13 @@
 #include <sdl2_cxx/time.hxx>
 #include <sdl2_cxx/video.hxx>
 
-#include <SDL2/SDL_opengles.h>
+#include <SDL2/SDL_opengl.h>
 
 static void AspectAdjust(int w, int h)
 {
-  float aspectAdjust = (4.0f / 3.0f) / ((float)w / h);
   glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glOrthof(-2.0, 2.0, -2.0 * aspectAdjust, 2.0 * aspectAdjust, -20.0, 20.0);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glEnable(GL_DEPTH_TEST);
