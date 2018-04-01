@@ -40,12 +40,11 @@ find_package(GLEW )
 
 add_subdirectory (3rd EXCLUDE_FROM_ALL)
 
+include(CTest)
+enable_testing()
 add_subdirectory(src)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
     add_subdirectory(doc)
 endif()
-
-include(CTest)
-enable_testing()
