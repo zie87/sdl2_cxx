@@ -3,7 +3,7 @@
 #include <sdl2_cxx/time.hxx>
 #include <sdl2_cxx/video.hxx>
 
-#include <SDL2/SDL_opengl.h>
+#include <SDL_opengl.h>
 
 static void AspectAdjust(int w, int h)
 {

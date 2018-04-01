@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 
 // SDL2 Headers
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 std::string programName = "Headerphile SDL2 - OpenGL thing";
 

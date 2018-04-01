@@ -1,5 +1,5 @@
 #include <GL/glew.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 GLuint BuildShaderProgram(const char* vsPath, const char* fsPath);
 GLuint CreateShader(GLenum eShaderType, const char* strShaderFile);
