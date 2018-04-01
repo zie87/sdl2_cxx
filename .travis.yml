@@ -37,8 +37,6 @@ matrix:
       addons: *clang5
       env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE='Debug' SUPPORT=libstdc++-4.9-dev
 
-    # OSX C++14 Clang Builds
-
     - os: osx
       osx_image: xcode8.3
       compiler: clang
