@@ -9,7 +9,7 @@
 #include <sdl2_cxx/net/core.hxx>
 #include <sdl2_cxx/time/timer.hxx>
 
-#include <iostream>
+#include <cmath>
 
 namespace sdl2
 {

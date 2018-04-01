@@ -3,8 +3,6 @@
 
 #include <catch.hpp>
 
-#include <iostream>
-
 TEST_CASE("test udp wrapper for sdl2_net", "[net]")
 {
   sdl2::init_guard sdl2_guard{};
