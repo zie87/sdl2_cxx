@@ -1,14 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(sdl2_cxx C CXX)
+project(sdl2_cxx LANGUAGES C CXX VERSION 0.1.1)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
-
-set(SDL2_CXX_MAJOR_VERSION 0)
-set(SDL2_CXX_MINOR_VERSION 1)
-set(SDL2_CXX_PATCH_VERSION 0)
-
-set(SDL2_CXX_VERSION "${SDL2_CXX_MAJOR_VERSION}.${SDL2_CXX_MINOR_VERSION}.${SDL2_CXX_PATCH_VERSION}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -41,7 +35,8 @@ find_package(SDL2_net)
 include (FindSDL2_ttf)
 find_package(SDL2_ttf)
 
-find_package (OpenGL)
+find_package(OpenGL)
+find_package(GLEW )
 
 add_subdirectory (3rd EXCLUDE_FROM_ALL)
 
