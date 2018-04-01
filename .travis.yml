@@ -9,7 +9,6 @@ env:
 matrix:
   include:
 
-    # Linux C++14 GCC builds
     - os: linux
       compiler: gcc
       addons: &gcc7
@@ -23,7 +22,6 @@ matrix:
       addons: *gcc7
       env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE='Debug'
 
-    # Linux C++14 Clang builds
     - os: linux
       compiler: clang
       addons: &clang5
