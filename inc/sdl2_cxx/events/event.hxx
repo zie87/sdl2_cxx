@@ -192,6 +192,30 @@ namespace sdl2
       constexpr mouse::button button() const { return static_cast<mouse::button>(event_data_holder<T>::get().button); }
     };
 
+    template <typename T>
+    class basic_event_view<T, decltype(SDL_Event::wheel)> : public event_data_holder<T>
+    {
+    public:
+      using event_data_holder<T>::event_data_holder;
+      using event_data_holder<T>::operator=;
+
+      enum class direction : uint32_t
+      {
+        normal = SDL_MOUSEWHEEL_NORMAL,
+        flipped = SDL_MOUSEWHEEL_FLIPPED
+      };
+
+      explicit constexpr basic_event_view(const SDL_Event& event) : event_data_holder<T>(event.wheel) {}
+
+      constexpr auto timestamp() const { return event_data_holder<T>::get().timestamp; }
+      constexpr auto windowID() const { return event_data_holder<T>::get().windowID; }
+      constexpr auto which() const { return event_data_holder<T>::get().which; }
+      constexpr auto x() const { return event_data_holder<T>::get().x; }
+      constexpr auto y() const { return event_data_holder<T>::get().y; }
+
+      constexpr auto get_direction() const { return static_cast<direction>(event_data_holder<T>::get().direction); }
+    };
+
   } // namespace detail
 
   template <event_type T = event_type::first>
@@ -204,6 +228,7 @@ namespace sdl2
   using text_event = detail::basic_event_view<decltype(SDL_Event::text)>;
   using motion_event = detail::basic_event_view<decltype(SDL_Event::motion)>;
   using button_event = detail::basic_event_view<decltype(SDL_Event::button)>;
+  using wheel_event = detail::basic_event_view<decltype(SDL_Event::wheel)>;
 
   template <typename T = std::nullptr_t>
   struct basic_event_traits
