@@ -69,7 +69,7 @@ namespace sdl2
   {
     constexpr int undefined = SDL_WINDOWPOS_UNDEFINED; /**< use to indicate that you don't care what the window position is. */
     constexpr int centered = SDL_WINDOWPOS_CENTERED;   /**< used to indicate that the window position should be centered */
-  }
+  }                                                    // namespace windowpos
 
   namespace detail
   {
@@ -82,7 +82,10 @@ namespace sdl2
     template <typename Derived>
     struct window_api
     {
+    private:
+      inline void set_fullscreen(std::uint32_t flags) { SDL2_CXX_CHECK(SDL_SetWindowFullscreen(to_sdl_type(*this), flags) == 0); }
 
+    public:
       /**
        * @brief Get the `sdl2::surface` associated with the window
        * @details A new surface will be created with the optimal format for the current window.
@@ -101,13 +104,17 @@ namespace sdl2
         SDL2_CXX_CHECK(sf != nullptr);
         return surface_ref(sf);
       }
-
       inline void update_surface() { SDL2_CXX_CHECK(SDL_UpdateWindowSurface(to_sdl_type(*this)) >= 0); }
+
+      inline void set_size(int w, int h) noexcept { SDL_SetWindowSize(to_sdl_type(*this), w, h); }
+      inline void set_position(int x, int y) noexcept { SDL_SetWindowPosition(to_sdl_type(*this), x, y); }
+
+      inline void set_windowed() { set_fullscreen(0); }
+      inline void set_fullscreen(window_flags flag) { set_fullscreen(static_cast<std::underlying_type_t<window_flags>>(flag)); }
 
       inline uint32_t get_flags() const noexcept { return SDL_GetWindowFlags(to_sdl_type(*this)); }
 
       explicit operator bool() const { return to_sdl_type(*this) != nullptr; }
-
       friend SDL_Window* to_sdl_type(const window_api& self) { return to_sdl_type(static_cast<const Derived&>(self)); }
 
     protected:
