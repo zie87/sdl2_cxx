@@ -229,8 +229,8 @@ namespace sdl2
       inline void set_color_mod(uint8_t r, uint8_t g, uint8_t b) { SDL2_CXX_CHECK((SDL_SetTextureColorMod(to_sdl_type(*this), r, g, b) >= 0)); }
       inline void get_color_mod(uint8_t& r, uint8_t& g, uint8_t& b) { SDL2_CXX_CHECK((SDL_GetTextureColorMod(to_sdl_type(*this), &r, &g, &b) >= 0)); }
 
-      inline void set_alpha_mode(uint8_t a) { SDL2_CXX_CHECK((SDL_SetTextureAlphaMod(to_sdl_type(*this), a) >= 0)); }
-      inline uint8_t get_alpha_mode()
+      inline void set_alpha_mod(uint8_t a) { SDL2_CXX_CHECK((SDL_SetTextureAlphaMod(to_sdl_type(*this), a) >= 0)); }
+      inline uint8_t get_alpha_mod()
       {
         uint8_t a = 0;
         SDL2_CXX_CHECK((SDL_GetTextureAlphaMod(to_sdl_type(*this), &a) >= 0));
