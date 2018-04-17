@@ -106,7 +106,9 @@ namespace sdl2
       }
       inline void update_surface() { SDL2_CXX_CHECK(SDL_UpdateWindowSurface(to_sdl_type(*this)) >= 0); }
 
+      inline void get_size(int& w, int& h) const noexcept { SDL_GetWindowSize(to_sdl_type(*this), &w, &h); }
       inline void set_size(int w, int h) noexcept { SDL_SetWindowSize(to_sdl_type(*this), w, h); }
+
       inline void set_position(int x, int y) noexcept { SDL_SetWindowPosition(to_sdl_type(*this), x, y); }
 
       inline void set_windowed() { set_fullscreen(0); }
