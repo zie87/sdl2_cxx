@@ -61,6 +61,12 @@ namespace sdl2
   {
     inline surface load(const std::string& img_path) { return to_cxx_type(IMG_Load(img_path.c_str())); }
 
+    inline void save_png(surface& surface, const std::string& img_path) { SDL2_CXX_IMG_CHECK(::IMG_SavePNG(to_sdl_type(surface), img_path.c_str())); }
+    inline void save_jpg(surface& surface, const std::string& img_path, int quality)
+    {
+      SDL2_CXX_IMG_CHECK(::IMG_SaveJPG(to_sdl_type(surface), img_path.c_str(), quality));
+    }
+
     struct init_guard
     {
       explicit init_guard(img_flags flag) { SDL2_CXX_IMG_CHECK(::IMG_Init(static_cast<std::underlying_type_t<img_flags>>(flag)) > 0); }

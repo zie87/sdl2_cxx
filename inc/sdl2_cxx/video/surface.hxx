@@ -30,6 +30,7 @@ namespace sdl2
     {
       inline int width() const noexcept { return to_sdl_type(*this)->w; }
       inline int height() const noexcept { return to_sdl_type(*this)->h; }
+      inline int pitch() const noexcept { return to_sdl_type(*this)->pitch; }
 
       inline int ref_count() const noexcept { return to_sdl_type(*this)->refcount; }
       inline pixel_format_ref format() const noexcept { return pixel_format_ref(to_sdl_type(*this)->format); }
