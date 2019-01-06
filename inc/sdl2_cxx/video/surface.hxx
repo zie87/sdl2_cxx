@@ -187,6 +187,32 @@ namespace sdl2
   };
 
   inline SDL_Surface* to_sdl_type(const surface_ref& s) noexcept { return s.m_surface; }
+
+  // inline void
+  // convert_pixels(int width, int height, pixel_format_type src_format, const void* src, int src_pitch, pixel_format_type dst_format, void* dst, int dst_pitch)
+
+  template <typename S>
+  inline void convert_pixels(const detail::surface_api<surface>& surface, const rect& src_rect, pixel_format_type dst_format, void* dst, int dst_pitch)
+  {
+    const auto width = src_rect.width();
+    const auto height = src_rect.height();
+    const auto pitch = surface.pitch();
+    const auto bytes_per_pixel = surface.format().bytes_per_pixel();
+    const auto format = surface.format_type();
+
+    const char* pixel_data = static_cast<const char*>(to_sdl_type(surface)->pixels);
+    const auto* pixel_ptr = pixel_data + (pitch * src_rect.y()) + src_rect.x() * bytes_per_pixel;
+
+    convert_pixels(width, height, format, static_cast<const void*>(pixel_ptr), pitch, dst_format, dst, dst_pitch);
+  }
+
+  template <typename S>
+  inline void convert_pixels(const detail::surface_api<surface>& surface, pixel_format_type dst_format, void* dst, int dst_pitch)
+  {
+    const rect src_rect(0, 0, surface.width(), surface.height());
+    convert_pixels<S>(surface, src_rect, dst_format, dst, dst_pitch);
+  }
+
 } // namespace sdl2
 
 #endif

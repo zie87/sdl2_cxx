@@ -144,6 +144,12 @@ namespace sdl2
   };
 
   inline SDL_PixelFormat* to_sdl_type(const pixel_format_ref& f) { return f.m_format; }
-} // namespace sdl2;
+
+  inline void
+  convert_pixels(int width, int height, pixel_format_type src_format, const void* src, int src_pitch, pixel_format_type dst_format, void* dst, int dst_pitch)
+  {
+    SDL2_CXX_CHECK(SDL_ConvertPixels(width, height, static_cast<uint32_t>(src_format), src, src_pitch, static_cast<uint32_t>(dst_format), dst, dst_pitch) == 0);
+  }
+} // namespace sdl2
 
 #endif
