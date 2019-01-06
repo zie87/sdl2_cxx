@@ -40,6 +40,12 @@ namespace sdl2
       inline uint8_t& alpha() noexcept { return to_sdl_type(*this)->a; }
       inline uint8_t alpha() const noexcept { return to_sdl_type(*this)->a; }
 
+      template <typename T>
+      inline bool equals(const color_api<T>& other) const noexcept
+      {
+        return red() == other.red() && green() == other.green() && blue() == other.blue() && alpha() == other.alpha();
+      }
+
       inline friend SDL_Color* to_sdl_type(color_api& c) { return to_sdl_type(static_cast<Derived&>(c)); }
       inline friend const SDL_Color* to_sdl_type(const color_api& c) { return to_sdl_type(static_cast<const Derived&>(c)); }
       ///@{
@@ -47,7 +53,7 @@ namespace sdl2
       virtual ~color_api() = default;
     };
 
-  } // detail
+  } // namespace detail
 
   struct color : public detail::color_api<color>
   {
@@ -73,6 +79,9 @@ namespace sdl2
 
   inline SDL_Color* to_sdl_type(color& c) { return (&c.m_color); }
   inline const SDL_Color* to_sdl_type(const color& c) { return (&c.m_color); }
+
+  inline bool operator==(const color& lhs, const color& rhs) noexcept { return lhs.equals(rhs); }
+  inline bool operator!=(const color& lhs, const color& rhs) noexcept { return !(lhs == rhs); }
 
 } // namespace sdl2
 
